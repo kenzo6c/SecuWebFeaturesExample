@@ -1,5 +1,5 @@
 <?php
-    require("phpheader.php");
+    require("lib/phpheader.php");
     if (!empty($_POST["submit"]))
     {
         if ($secu->isFormValid("userauth", ["username", "password"]))

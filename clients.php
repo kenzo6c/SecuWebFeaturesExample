@@ -1,3 +1,3 @@
 <?php
-    require("phpheader.php");
+    require("lib/phpheader.php");
 ?>

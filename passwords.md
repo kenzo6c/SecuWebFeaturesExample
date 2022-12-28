@@ -39,8 +39,8 @@ Use the following code to generate the password:
         ]
     ];
 
-    file_put_contents("accounts.json", json_encode($users));
-    $accountsData = json_decode(file_get_contents("accounts.json"), true);
+    file_put_contents("data/accounts.json", json_encode($users));
+    $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
     echo "Available algorithms: " . implode(", ", password_algos()) . "<br><br>";
     foreach ($accountsData as $accountAuth) {

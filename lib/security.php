@@ -83,7 +83,7 @@ class Security
 
     public function authUser($user)
     {
-        $accountsData = json_decode(file_get_contents("accounts.json"), true);
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         $loginOk = false;
         foreach ($accountsData as $account) {
@@ -109,7 +109,7 @@ class Security
 
     public function verifyPassword($username, $password)
     {
-        $accountsData = json_decode(file_get_contents("accounts.json"), true);
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         if (password_verify($password, $accountsData[$username]["hash"]))
         {
@@ -122,11 +122,11 @@ class Security
     public function changePassword($username, $newPassword, $hashAlgorithm)
     {
 
-        $accountsData = json_decode(file_get_contents("accounts.json"), true);
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         $accountsData[$username]["hash"] = password_hash($newPassword, $hashAlgorithm);
 
-        file_put_contents("accounts.json", json_encode($accountsData));
+        file_put_contents("data/accounts.json", json_encode($accountsData));
     }
 
     public function checkAccess($requiredLevel)

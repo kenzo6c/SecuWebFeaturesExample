@@ -1,5 +1,5 @@
 <?php
-    require("phpheader.php");
+    require("lib/phpheader.php");
     if ($_SESSION["loggedin"])
     {
         if (!empty($_POST["submit"]))
@@ -27,8 +27,7 @@
     }
     else
     {
-        echo "You are not logged in.";
-        // header("Location: index.php");
+        require("noaccess.php");
         exit();
     }
 ?>

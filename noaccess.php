@@ -1,3 +1,22 @@
-You cannot access this page.
+<!DOCTYPE html>
+<html>
 
-<a href="auth.php">Return to authentication page</a>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <title>Erreur - Accès refusé</title>
+    </head>
+    <body>
+        <br/>
+        <div class="container">
+            <div class="row">
+                <div class="column">
+                    <h1 class="text-center">Accès refusé</h1>
+                    <p> Vous ne pouvez pas accéder à cette page. </p>
+                    <a href="index.php">Retourner à la page d'accueil</a>
+                </diV>
+            </div>
+        </div>
+    </body>
+</html>
