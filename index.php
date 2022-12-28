@@ -1,3 +1,3 @@
 <?php
-    header("auth.php");
+    header("Location: auth.php");
 ?>

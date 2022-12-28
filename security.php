@@ -5,11 +5,14 @@ class Security
 
     private $CSRFTokenName = "CSRFtoken";
 
-    public function __construct()
+    public function __construct($nbrOfAttempts)
     {
         $this->server = &$_SERVER;
         $this->session = &$_SESSION;
         $this->post = &$_POST;
+
+        if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
+        if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $nbrOfAttempts;
     }
 
     public function getCSRFToken()
@@ -31,7 +34,7 @@ class Security
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
     }
 
-    public function isAuthTokenValid()
+    public function isTokenValid()
     {
         if (!isset($this->session[$this->CSRFTokenName]))
         {
@@ -54,26 +57,33 @@ class Security
         // $_POST["CSRFtoken"] == $_SESSION["CSRFtoken"] ???
     }
 
-    public function isAuthValid()
+    public function isFormValid($formName, $fields)
     {
-        if (!$this->isAuthTokenValid())
+        if (!$this->isTokenValid())
         {
             return false;
         }
         echo "Token is valid <br/>";
 
-        if (empty($this->post["userauth"]) || empty($this->post["userauth"]["username"]) || empty($this->post["userauth"]["password"]))
+        if (empty($this->post[$formName]))
         {
             return false;
+        }
+
+        foreach($fields as $field)
+        {
+            if (empty($this->post[$formName][$field]))
+            {
+                return false;
+            }
         }
 
         return true;
     }
 
-    public function authUser()
+    public function authUser($user)
     {
         $accountsData = json_decode(file_get_contents("accounts.json"), true);
-        $user = $this->post["userauth"];
 
         $loginOk = false;
         foreach ($accountsData as $account) {
@@ -92,15 +102,38 @@ class Security
             $this->session["user"] = $user["username"];
             $this->session["loggedin"] = true;
             return true;
+
         }
         return false;
+    }
+
+    public function verifyPassword($username, $password)
+    {
+        $accountsData = json_decode(file_get_contents("accounts.json"), true);
+
+        if (password_verify($password, $accountsData[$username]["hash"]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function changePassword($username, $newPassword, $hashAlgorithm)
+    {
+
+        $accountsData = json_decode(file_get_contents("accounts.json"), true);
+
+        $accountsData[$username]["hash"] = password_hash($newPassword, $hashAlgorithm);
+
+        file_put_contents("accounts.json", json_encode($accountsData));
     }
 
     public function checkAccess($requiredLevel)
     {
         if (empty($this->session["level"]) || !is_numeric($this->session["level"]) || $this->session["level"] < $requiredLevel)
         {
-            header("index.php");
+            header("Location: index.php");
             exit();
         }
     }
