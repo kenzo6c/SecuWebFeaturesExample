@@ -2,6 +2,7 @@
     require("lib/phpheader.php");
     if (!empty($_POST["submit"]))
     {
+        print($_POST["submit"]);
         if ($secu->isFormValid("userauth", ["username", "password"]))
         {
             if ($secu->authUser($_POST["userauth"]))
@@ -22,19 +23,19 @@
                 else
                 {
                     echo "AUTH ERROR";
-                    $secu->resetAccess();
+                    $secu->disconnect();
                     exit();
                 }
             }
             else
             {
-                $secu->resetAccess();
+                $secu->disconnect();
                 echo "Wrong username or password";
             }
         }
         else
         {
-            $secu->resetAccess();
+            $secu->disconnect();
             echo "Invalid auth.";
         }
     }

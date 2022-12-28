@@ -5,33 +5,39 @@ class Security
 
     private $CSRFTokenName = "CSRFtoken";
 
-    public function __construct($nbrOfAttempts)
+    public function __construct($nbrOfAttempts, $CSRFTokenLength)
     {
         $this->server = &$_SERVER;
         $this->session = &$_SESSION;
         $this->post = &$_POST;
+        $this->CSRFTokenLength = $CSRFTokenLength;
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
         if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $nbrOfAttempts;
     }
 
-    public function getCSRFToken()
+    private function resetCSRFToken()
+    {
+        $this->session[$this->CSRFTokenName] = bin2hex(openssl_random_pseudo_bytes($this->CSRFTokenLength));
+    }
+
+    private function getCSRFToken()
     {
         if (empty($this->session[$this->CSRFTokenName]))
         {
-            $this->session[$this->CSRFTokenName] = bin2hex(openssl_random_pseudo_bytes(64));
+            $this->resetCSRFToken();
         }
         return $this->session[$this->CSRFTokenName];
-    }
-
-    public function insertCSRFField()
-    {
-        echo '<input type="hidden" name="'. $this->CSRFTokenName . '" value="' . $this->preventXSS($this->getCSRFToken()) . '">';
     }
 
     public function preventXSS($value)
     {
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    public function insertCSRFField()
+    {
+        echo '<input type="hidden" name="'. $this->CSRFTokenName . '" value="' . $this->preventXSS($this->getCSRFToken()) . '">';
     }
 
     public function isTokenValid()
@@ -138,10 +144,11 @@ class Security
         }
     }
 
-    public function resetAccess()
+    public function disconnect()
     {
         $this->session["user"] = null;
         $this->session["loggedin"] = false;
+        $this->resetCSRFToken();
     }
 }
 ?>
