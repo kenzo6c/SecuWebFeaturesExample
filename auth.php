@@ -12,11 +12,11 @@
                 {
                     echo "Admin Auth OK";
                 }
-                elseif ($_SESSION["user"] === "Utilisateur 1")
+                elseif ($_SESSION["user"] === "Utilisateur1")
                 {
                     echo "User 1 Auth OK";
                 }
-                elseif ($_SESSION["user"]  === "Utilisateur 2")
+                elseif ($_SESSION["user"]  === "Utilisateur2")
                 {
                     echo "User 2 Auth OK";
                 }
@@ -46,13 +46,13 @@
         {
             echo "Admin Auth OK";
         }
-        elseif ($_SESSION["user"] === "Utilisateur 1")
+        elseif ($_SESSION["user"] === "Utilisateur1")
         {
-            echo "User 1 Auth OK";
+            echo "User1 Auth OK";
         }
-        elseif ($_SESSION["user"]  === "Utilisateur 2")
+        elseif ($_SESSION["user"]  === "Utilisateur2")
         {
-            echo "User 2 Auth OK";
+            echo "User2 Auth OK";
         }
     }
 

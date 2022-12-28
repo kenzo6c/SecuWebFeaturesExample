@@ -1,5 +1,7 @@
 
 <?php
+require("log.php");
+
 class Security
 {
 
@@ -11,6 +13,8 @@ class Security
         $this->session = &$_SESSION;
         $this->post = &$_POST;
         $this->CSRFTokenLength = $CSRFTokenLength;
+
+        $this->logger = new Logger();
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
         if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $nbrOfAttempts;
@@ -105,6 +109,8 @@ class Security
 
         if ($loginOk)
         {
+            $this->logger->printlog('User "' . $user["username"] . '" connected');
+
             $this->session["user"] = $user["username"];
             $this->session["loggedin"] = true;
             return true;
@@ -127,7 +133,7 @@ class Security
 
     public function changePassword($username, $newPassword, $hashAlgorithm)
     {
-
+        $this->logger->printlog('User "' . $username . '" changed his password.');
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         $accountsData[$username]["hash"] = password_hash($newPassword, $hashAlgorithm);
@@ -146,6 +152,10 @@ class Security
 
     public function disconnect()
     {
+        if (!empty($this->session["user"]))
+        {
+            $this->logger->printlog('User "' . $this->session["user"] . '" disconnected');
+        }
         $this->session["user"] = null;
         $this->session["loggedin"] = false;
         $this->resetCSRFToken();

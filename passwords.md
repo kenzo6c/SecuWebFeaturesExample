@@ -9,8 +9,8 @@ Which means we don't need to store it separately!
 
 Passwords of the users :
 - Administrateur: ZMGRCZ#&\JymzJ>]Ap\X_G^(YeIOf[aY6'H
-- Utilisateur 1: 2tC5gaJN8y2K7ASh7WFq
-- Utilisateur 2: BonjourVJ30h27121990
+- Utilisateur1: 2tC5gaJN8y2K7ASh7WFq
+- Utilisateur2: BonjourVJ30h27121990
 
 Use the following code to generate the password:
 
