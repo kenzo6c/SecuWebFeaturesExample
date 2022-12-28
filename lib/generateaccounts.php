@@ -1,33 +1,45 @@
 <?php
     $passwords = [
         "Administrateur" => "ZMGRCZ#&\JymzJ>]Ap\X_G^(YeIOf[aY6'H",
-        "Utilisateur 1" => "2tC5gaJN8y2K7ASh7WFq",
-        "Utilisateur 2" => "BonjourVJ30h27121990"
+        "Utilisateur1" => "2tC5gaJN8y2K7ASh7WFq",
+        "Utilisateur2" => "BonjourVJ30h27121990"
     ];
+
+    $AdminName = "Administrateur";
+    $AdminHash = password_hash($passwords[$AdminName], PASSWORD_ARGON2ID);
+    $AdminInfo = password_get_info($AdminHash);
+
+    $U1Name = "Utilisateur1";
+    $U1Hash = password_hash($passwords[$U1Name], PASSWORD_ARGON2ID);
+    $U1Info = password_get_info($U1Hash);
+
+    $U2Name = "Utilisateur2";
+    $U2Hash = password_hash($passwords[$U2Name], PASSWORD_ARGON2ID);
+    $U2Info = password_get_info($U2Hash);
 
     $users = [
-        "Administrateur" => [
-            "username" => "Administrateur",
-            "hash" => password_hash($passwords["Administrateur"], PASSWORD_ARGON2ID),
-            "algoPHP" => PASSWORD_ARGON2ID,
+        $AdminName  => [
+            "username" =>  $AdminName,
+            "hash" => $AdminHash,
+            "algoPHP" => $AdminInfo["algo"],
+            "algoHuman" => $AdminInfo["algoName"]
+        ],
+        $U1Name => [
+            "username" =>  $U1Name,
+            "hash" => $U1Hash,
+            "algoPHP" => $AdminInfo["algoName"],
             "algoHuman" => "Argon2id"
         ],
-        "Utilisateur 1" => [
-            "username" => "Utilisateur 1",
-            "hash" => password_hash($passwords["Utilisateur 1"], PASSWORD_BCRYPT),
-            "algoPHP" => PASSWORD_BCRYPT,
-            "algoHuman" => "Bcrypt"
-        ],
-        "Utilisateur 2" => [
-            "username" => "Utilisateur 2",
-            "hash" => password_hash($passwords["Utilisateur 2"], PASSWORD_ARGON2ID),
-            "algoPHP" => PASSWORD_ARGON2ID,
+        $U2Name => [
+            "username" => $U2Name,
+            "hash" => $U2Hash,
+            "algoPHP" => $AdminInfo["algoName"],
             "algoHuman" => "Argon2id"
-        ]
+        ],
     ];
 
-    file_put_contents("data/accounts.json", json_encode($users));
-    $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+    file_put_contents("../data/accounts.json", json_encode($users));
+    $accountsData = json_decode(file_get_contents("../data/accounts.json"), true);
 
     echo "Available algorithms: " . implode(", ", password_algos()) . "<br><br>";
     foreach ($accountsData as $accountAuth) {
