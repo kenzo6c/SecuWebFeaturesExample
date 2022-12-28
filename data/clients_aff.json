@@ -1,0 +1,17 @@
+{
+    "Kylian Travert":{
+        "Prénom": "Kylian",
+        "Nom": "Travers",
+        "Téléphone": "418-543-4243"
+    },
+    "Mario Veillette":{
+        "Prénom": "Mario",
+        "Nom": "Veillette",
+        "Téléphone": "418-845-3874"
+    },
+    "Léo Devillier":{
+        "Prénom": "Léo",
+        "Nom": "Devillier",
+        "Téléphone": "418-623-1296"
+    }
+}

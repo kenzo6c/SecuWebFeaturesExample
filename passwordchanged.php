@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <title> Mot de passe modifié </title>
+        <title>Mot de passe modifié</title>
     </head>
     <body>
         <br/>

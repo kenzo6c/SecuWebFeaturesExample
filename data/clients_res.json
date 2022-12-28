@@ -1,0 +1,17 @@
+{
+    "Jean Tremblay":{
+        "Prénom": "Jean",
+        "Nom": "Tremblay",
+        "Téléphone": "418-555-1234"
+    },
+    "Célia Tremblay":{
+        "Prénom": "Célia",
+        "Nom": "Tremblay",
+        "Téléphone": "418-555-4345"
+    },
+    "Marc Bouchard":{
+        "Prénom": "Marc",
+        "Nom": "Bouchard",
+        "Téléphone": "418-555-3434"
+    }
+}
