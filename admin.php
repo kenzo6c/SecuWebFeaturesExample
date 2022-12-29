@@ -31,7 +31,7 @@
         }
         file_put_contents("data/accounts.json", json_encode($accounts));
 
-        $secu->logger->printlog("Attempts left have been restored by \"" . $_SESSION["user"] . "\" for all users.");
+        $secu->logger->printLog("Attempts left have been restored by \"" . $_SESSION["user"] . "\" for all users.");
 
     }
 

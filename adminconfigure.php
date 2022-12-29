@@ -58,7 +58,7 @@
         }
 
         echo "Configuration has been updated.";
-        $secu->logger->printlog("Configuration has been updated by \"" . $_SESSION["user"] . "\".");
+        $secu->logger->printLog("Configuration has been updated by \"" . $_SESSION["user"] . "\".");
 
     }
 

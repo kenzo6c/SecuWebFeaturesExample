@@ -111,7 +111,7 @@ class Security
 
         if ($loginOk)
         {
-            $this->logger->printlog('User "' . $user["username"] . '" connected');
+            $this->logger->printLog('User "' . $user["username"] . '" connected');
 
             $this->session["user"] = $user["username"];
             $this->session["access"] = $accountsData[$user["username"]]["access"];
@@ -177,11 +177,11 @@ class Security
     {
         if ($forced)
         {
-            $this->logger->printlog('An administrator has changed the password of "' . $username . '".');
+            $this->logger->printLog('An administrator has changed the password of "' . $username . '".');
         }
         else
         {
-            $this->logger->printlog('User "' . $username . '" has changed his password.');
+            $this->logger->printLog('User "' . $username . '" has changed his password.');
         }
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
@@ -249,11 +249,11 @@ class Security
             $accountsData[$username]["attempts_left"] -= 1;
             file_put_contents("data/accounts.json", json_encode($accountsData));
             echo "Attempts left after decrement: " . $accountsData[$username]["attempts_left"] . "<br/>";
-            $this->logger->printlog('User "' . $username . '" has ' . $accountsData[$username]["attempts_left"] . ' attempts left after decrement.');
+            $this->logger->printLog('User "' . $username . '" has ' . $accountsData[$username]["attempts_left"] . ' attempts left after decrement.');
         }
         else
         {
-            $this->logger->printlog('User "' . $username . '" not found (or is an administrator) => no decrement.');
+            $this->logger->printLog('User "' . $username . '" not found (or is an administrator) => no decrement.');
         }
 
         $this->session["waitingTime"] = time() + $this->config["attemptsWaitTime"];
@@ -277,7 +277,7 @@ class Security
     {
         if (!empty($this->session["user"]))
         {
-            $this->logger->printlog('User "' . $this->session["user"] . '" disconnected');
+            $this->logger->printLog('User "' . $this->session["user"] . '" disconnected');
         }
         $this->session["user"] = null;
         $this->session["access"] = null;
