@@ -12,7 +12,7 @@ Passwords of the users :
 - Utilisateur1: 2tC5gaJN8y2K7ASh7WFq
 - Utilisateur2: BonjourVJ30h27121990
 
-Use the code from restoreaccounts.php to restore the default values of the account (password, attempts left, ...).
+Use the code from adminrestoreaccounts.php to restore the default values of the account (password, attempts left, ...).
 
 
 Paste in a file and run it in a browser to create the json file "clients.json" with the default users and their hashes.
