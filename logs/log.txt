@@ -3,3 +3,54 @@
 [29/12/2022 22:20:04] Configuration has been updated by "Administrateur".
 [29/12/2022 22:20:44] Configuration has been updated by "Administrateur".
 [29/12/2022 22:20:53] Configuration has been updated by "Administrateur".
+[29/12/2022 23:06:29] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 23:06:31] Configuration has been updated by "Administrateur".
+[29/12/2022 23:11:25] Configuration has been updated by "Administrateur".
+[29/12/2022 23:13:35] User "Administrateur" disconnected
+[29/12/2022 23:13:42] User "Utilisateur1" has 9 attempts left after decrement.
+[29/12/2022 23:14:34] User "Utilisateur1" has 8 attempts left after decrement.
+[29/12/2022 23:15:39] User "Utilisateur1" has 7 attempts left after decrement.
+[29/12/2022 23:15:44] User "Utilisateur1" has 6 attempts left after decrement.
+[29/12/2022 23:15:49] User "Utilisateur1" has 5 attempts left after decrement.
+[29/12/2022 23:16:05] User "Utilisateur1" has 4 attempts left after decrement.
+[29/12/2022 23:16:10] User "Utilisateur1" has 3 attempts left after decrement.
+[29/12/2022 23:16:15] User "Utilisateur1" has 2 attempts left after decrement.
+[29/12/2022 23:16:22] User "Utilisateur1" has 1 attempts left after decrement.
+[29/12/2022 23:16:28] User "Utilisateur1" has 0 attempts left after decrement.
+[29/12/2022 23:16:37] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:16:43] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:16:50] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:18:42] User "Administrateur" has 9 attempts left after decrement.
+[29/12/2022 23:19:11] User "Administrateur" has 8 attempts left after decrement.
+[29/12/2022 23:19:56] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:20:19] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:20:28] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:21:32] User "Administrateur" connected
+[29/12/2022 23:23:29] User "Administrateur" disconnected
+[29/12/2022 23:23:52] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:24:36] An administrator has changed the password of "Administrateur".
+[29/12/2022 23:24:53] An administrator has changed the password of "Utilisateur1".
+[29/12/2022 23:25:02] An administrator has changed the password of "Utilisateur2".
+[29/12/2022 23:27:25] User "Administrateur" connected
+[29/12/2022 23:28:27] User "Administrateur" disconnected
+[29/12/2022 23:28:33] User "Administrateur" connected
+[29/12/2022 23:28:34] User "Administrateur" disconnected
+[29/12/2022 23:28:57] User "Administrateur" connected
+[29/12/2022 23:28:59] User "Administrateur" disconnected
+[29/12/2022 23:29:11] User "Utilisateur1" connected
+[29/12/2022 23:29:12] User "Utilisateur1" disconnected
+[29/12/2022 23:29:20] User "Utilisateur2" connected
+[29/12/2022 23:29:21] User "Utilisateur2" disconnected
+[29/12/2022 23:29:28] User "Administrateur" connected
+[29/12/2022 23:29:43] User "Administrateur" has changed his password.
+[29/12/2022 23:29:43] User "Administrateur" disconnected
+[29/12/2022 23:29:50] User "Administrateur" connected
+[29/12/2022 23:30:04] User "Administrateur" disconnected
+[29/12/2022 23:30:08] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:33:03] User "Administrateur" connected
+[29/12/2022 23:33:11] User "Administrateur" has changed his password.
+[29/12/2022 23:33:11] User "Administrateur" disconnected
+[29/12/2022 23:33:17] User "Administrateur" connected
+[29/12/2022 23:33:34] User "Administrateur" disconnected
+[29/12/2022 23:33:41] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 23:33:47] User "Administrateur" connected

@@ -17,26 +17,28 @@
         {
             return;
         }
-        if (!$secu->isFormValid("restoreAccounts", []))
+        if (!$secu->isFormValidLog("restoreAccounts", []))
         {
-            echo "Invalid form.";
             return;
         }
 
         # load config
         $config = json_decode(file_get_contents("data/config.json"), true);
+        $defaultAccounts = json_decode(file_get_contents("data/accountsDefault.json"), true);
 
         $AdminName = "Administrateur";
-        $AdminHash = '$argon2id$v=19$m=65536,t=4,p=1$em9pZUMuTHhVVGdtYmMxNQ$NGxApcd2569o1euxpgyS\/o4G0eiZvP+VG4PuTc\/1Lfg';
+        $AdminHash = $defaultAccounts[$AdminName]["hash"];
         $AdminInfo = password_get_info($AdminHash);
 
         $U1Name = "Utilisateur1";
-        $U1Hash = '$argon2id$v=19$m=65536,t=4,p=1$SUU1Z3ppMkxqMDJrdGJheQ$IlJy0FjwDCRBZgiudGTtK+zdpaS0rtJfeim5R\/x276E';
+        $U1Hash = $defaultAccounts[$U1Name]["hash"];
         $U1Info = password_get_info($U1Hash);
 
         $U2Name = "Utilisateur2";
-        $U2Hash ='$argon2id$v=19$m=65536,t=4,p=1$Z3Ftai5QRDVwU2t1Q2o0bQ$ZArLfH37IPzWaoJJS6Z9f3bK7ErhqGBAUtyGGITmXUo';
+        $U2Hash = $defaultAccounts[$U2Name]["hash"];
         $U2Info = password_get_info($U2Hash);
+
+        print_r($defaultAccounts[$AdminName]["hash"]);
 
         $users = [
             $AdminName  => [

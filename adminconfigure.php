@@ -17,9 +17,8 @@
         {
             return;
         }
-        if (!$secu->isFormValid("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
+        if (!$secu->isFormValidLog("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
-            echo "Invalid form.";
             return;
         }
 
@@ -57,7 +56,7 @@
             $_SESSION["waitingTime"] = 0;
         }
 
-        echo "Configuration has been updated.";
+        $secu->logger->footerLog("La configuration a été changée.", "success");
         $secu->logger->printLog("Configuration has been updated by \"" . $_SESSION["user"] . "\".");
 
     }

@@ -17,34 +17,32 @@
         {
             return;
         }
-        if (!$secu->isFormValid("fchgepass", ["username", "newpassword"]))
+        if (!$secu->isFormValidLog("fchgepass", ["username", "newpassword"]))
         {
-            echo "Invalid form.";
             return;
         }
         $user = $_POST["fchgepass"]["username"];
         $newpassword = $_POST["fchgepass"]["newpassword"];
         if (!$secu->checkIfUserExists($user))
         {
-            echo "This user doesn't exist.";
+            $secu->logger->footerLog("Cet utilisateur n'existe pas");
             return;
         }
         if ($secu->userIsRoot($user))
         {
-            echo "You can't force the password change of an administrator.";
+            $secu->logger->footerLog("Vous ne pouvez pas forcer le changement du mot de passe d'un admnistrateur.");
             return;
         }
         $weakness = $secu->passwordWeakness($newpassword);
         if ($weakness !== "None")
         {
-            echo "Password is not strong enough.";
-            echo "Weakness: " . $weakness;
+            $secu->logger->footerLog("Le mot de passe est trop faible. Faiblesse: " . $weakness);
             return;
         }
 
         # --- Functionnal code ---
         $secu->changePassword($user, $newpassword, $config["hashAlgorithm"], true);
-        echo "The Password of \"" . $user . "\" has been changed.";
+        $secu->logger->footerLog("Le mot de passe de \"" . $user . "\" a été changé.", "success");
     }
 
     adminChangePassword();

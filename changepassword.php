@@ -17,34 +17,32 @@
         {
             return;
         }
-        if (!$secu->isFormValid("chgepass", ["old", "new"]))
+        if (!$secu->isFormValidLog("chgepass", ["old", "new"]))
         {
-            echo "Invalid form.";
             return;
         }
         if (!$secu->hasAttempts($_SESSION["user"]))
         {
-            echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
+            $secu->logger->footerLog("Vous ne pouvez plus faire d'essai, le compte est bloqué, merci de contacter un administrateur pour changer le mot de passe.", "danger");
             return;
         }
         $waitingTimeLeft = $secu->waitingTimeLeft();
         if ($waitingTimeLeft > 0)
         {
-            echo "Please wait " . $waitingTimeLeft . " seconds.";
+            $secu->logger->footerLog("Attendez encore " . $waitingTimeLeft . " secondes avant de réessayer.");
             return;
         }
         if (!$secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
         {
             $secu->decrementAttempts($_SESSION["user"]);
-            echo "Wrong password.";
+            $secu->logger->footerLog("Mot de passe invalide");
             return;
         }
         $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
         if ($weakness !== "None")
         {
             $secu->resetAttempts($_SESSION["user"]);
-            echo "Password is not strong enough.";
-            echo "Weakness: " . $weakness;
+            $secu->logger->footerLog("Le mot de passe est trop faible. Faiblesse: " . $weakness);
             return;
         }
 

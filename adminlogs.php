@@ -17,9 +17,8 @@
         {
             return;
         }
-        if (!$secu->isFormValid("clearLogs", []))
+        if (!$secu->isFormValidLog("clearLogs", []))
         {
-            echo "Invalid form.";
             return;
         }
 

@@ -6,17 +6,32 @@
 
     if ($display)
     {
-        $CSSclass = "bg-warning" . $CSSclass;
+        if ($_SESSION["footerLogLevel"] === "success")
+            $CSSclass = "bg-success text-white " . $CSSclass;
+        else if ($_SESSION["footerLogLevel"] === "danger")
+            $CSSclass = "bg-danger text-white " . $CSSclass;
+        else if ($_SESSION["footerLogLevel"] === "warning")
+            $CSSclass = "bg-warning text-dark " . $CSSclass;
     }
 ?>
-<footer class=<?=$CSSclass?>>
+<br/><br/>
+
+<footer class="<?=$CSSclass?>">
     <div class="text-center p-3">
         <?php
             if ($display)
             {
-                echo "/!\\" . $_SESSION["footerLogContent"];
+                if ($_SESSION["footerLogLevel"] === "success")
+                    echo "✅ ";
+                else if ($_SESSION["footerLogLevel"] === "danger")
+                    echo "❌ ";
+                else if ($_SESSION["footerLogLevel"] === "warning")
+                    echo "⚠️ ";
+                echo $_SESSION["footerLogContent"];
 
                 $_SESSION["footerLog"] = false;
+                $_SESSION["footerLogContent"] = "";
+                $_SESSION["footerLogLevel"] = "";
             }
         ?>
     </div>

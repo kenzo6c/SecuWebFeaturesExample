@@ -17,9 +17,8 @@
         {
             return;
         }
-        if (!$secu->isFormValid("restoreAttempts", []))
+        if (!$secu->isFormValidLog("restoreAttempts", []))
         {
-            echo "Invalid form.";
             return;
         }
 

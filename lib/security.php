@@ -72,10 +72,8 @@ class Security
     {
         if (!$this->isTokenValid())
         {
-            echo "Token invalide <br/>";
             return false;
         }
-        echo "Token is valid <br/>";
 
         if (empty($this->post[$formName]))
         {
@@ -91,6 +89,16 @@ class Security
         }
 
         return true;
+    }
+
+    public function isFormValidLog($formName, $fields)
+    {
+        $result = $this->isFormValid($formName, $fields);
+        if (!$result)
+        {
+            $this->logger->footerLog("Formulaire invalide.", "danger");
+        }
+        return $result;
     }
 
     public function authUser($user)
@@ -152,23 +160,23 @@ class Security
     {
         if (strlen($password) < $this->config["passwordminlength"])
         {
-            return "Password is too short.";
+            return "Trop court. (minimum " . $this->config["passwordminlength"] . " caractères).";
         }
         if (strlen($password) > $this->config["passwordmaxlength"])
         {
-            return "Password is too long.";
+            return "Trop long. (maximum " . $this->config["passwordmaxlength"] . " caractères).";
         }
         if ($this->config["requireDigit"] && !preg_match("#[0-9]+#", $password))
         {
-            return "Password must include at least one digit.";
+            return "Doit inclure au moins un chiffre.";
         }
         if ($this->config["requireLetter"] && !preg_match("#[a-zA-Z]+#", $password))
         {
-            return "Password must include at least one letter.";
+            return "Doit inclure au moins une lettre.";
         }
         if ($this->config["requireSymbol"] && !preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $password))
         {
-            return "Password must include at least one special character.";
+            return "Doit inclure au moins un caractère spécial.";
         }
         return "None";
     }
@@ -240,15 +248,14 @@ class Security
         return $this->session["waitingTime"] - time();
     }
 
-    public function decrementAttempts($username)
+    public function decrementAttempts($username, $log = true)
     {
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
-        if (!empty($accountsData[$username]) && $username !== "Administrateur")
+        if (!empty($accountsData[$username]) && !$accountsData[$username]["is_root"])
         {
             $accountsData[$username]["attempts_left"] -= 1;
             file_put_contents("data/accounts.json", json_encode($accountsData));
-            echo "Attempts left after decrement: " . $accountsData[$username]["attempts_left"] . "<br/>";
             $this->logger->printLog('User "' . $username . '" has ' . $accountsData[$username]["attempts_left"] . ' attempts left after decrement.');
         }
         else
@@ -257,20 +264,20 @@ class Security
         }
 
         $this->session["waitingTime"] = time() + $this->config["attemptsWaitTime"];
+
+        if ($log && !empty($accountsData[$username]) && !$accountsData[$username]["is_root"])
+        {
+            $this->logger->footerLog("Essai(s) restant(s) : " . $accountsData[$username]["attempts_left"]);
+        }
+
+        return $accountsData[$username]["attempts_left"];
     }
 
     public function resetAttempts($username)
     {
-        if (empty($username))
-        {
-            echo "ERROR : Username is empty.<br/>";
-        }
-        else
-        {
-            $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
-            $accountsData[$username]["attempts_left"] = $this->config["maxAttemptsAccount"];
-            file_put_contents("data/accounts.json", json_encode($accountsData));
-        }
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+        $accountsData[$username]["attempts_left"] = $this->config["maxAttemptsAccount"];
+        file_put_contents("data/accounts.json", json_encode($accountsData));
     }
 
     public function disconnect()

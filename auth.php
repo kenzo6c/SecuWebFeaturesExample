@@ -7,7 +7,7 @@
         global $secu;
         global $config;
 
-        # --- Guard Clauses ---
+        # --- Guard Clauses & Functional Code ---
         if (!empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
         {
             header("Location: index.php");
@@ -17,35 +17,33 @@
         {
             return;
         }
-        if (!$secu->isFormValid("userauth", ["username", "password"]))
+        if (!$secu->isFormValidLog("userauth", ["username", "password"]))
         {
             $secu->disconnect();
-            echo "Invalid form.";
             return;
         }
         if (!$secu->hasAttempts($_POST["userauth"]["username"]))
         {
             $secu->disconnect();
-            echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
+            $secu->logger->footerLog("Vous ne pouvez plus faire d'essai, le compte est bloqué, merci de contacter un administrateur pour changer le mot de passe.", "danger");
             return;
         }
         $waitingTimeLeft = $secu->waitingTimeLeft();
         if ($waitingTimeLeft > 0)
         {
             $secu->disconnect();
-            echo "Please wait " . $waitingTimeLeft . " seconds.";
+            $secu->logger->footerLog("Attendez encore " . $waitingTimeLeft . " secondes avant de réessayer.");
             return;
         }
         if (!$secu->authUser($_POST["userauth"]))
         {
             $secu->disconnect();
             $secu->decrementAttempts($_POST["userauth"]["username"]);
-            echo "Wrong username or password";
+            $secu->logger->footerLog("Nom d'utilisateur et/ou mot de passe invalide(s)");
             return;
         }
 
-        # --- Functionnal code ---
-        print($_SESSION["user"]);
+        header("Location: index.php");
     }
 
     auth();
