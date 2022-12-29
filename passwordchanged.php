@@ -35,6 +35,9 @@
             </div>
         </div>
 
-        <script src="js/bootstrap.min.js"></script>
+        <?php
+            require_once("lib/footer.php")
+        ?>
+
     </body>
 </html>
