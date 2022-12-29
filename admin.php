@@ -27,7 +27,8 @@
             <div class="row">
                 <div class="column">
                     <p>
-                        <a href="changepasswordforced.php">Forcer le changement de mot de passe d'un utilisateur</a><br/>
+                        <a href="adminconfigure.php">Configurer la politique de sécurité</a><br/>
+                        <a href="adminchangepassword.php">Forcer le changement de mot de passe d'un utilisateur</a><br/>
                     </p>
                 </div>
             </div>
