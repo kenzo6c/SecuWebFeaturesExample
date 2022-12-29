@@ -103,6 +103,8 @@
                         <?php $secu->insertCSRFField();?>
                         <input type="submit" name="restoreAttempts" class=" btn btn-warning" value="Restaurer le nombre de tentatives"><br/><br/>
                     </form>
+                        <a href="restoreaccounts.php" class="btn btn-danger">Restaurer tous les comptes (ACTION IRRÉVERSIBLE)</a><br/>
+                    </p>
                 </div>
             </div>
         </div>
