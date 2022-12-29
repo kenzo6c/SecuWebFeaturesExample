@@ -12,7 +12,7 @@
     </head>
     <body>
         <?php
-            require_once("navbar.php")
+            require_once("lib/navbar.php")
         ?>
 
         <br/>
