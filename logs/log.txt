@@ -187,3 +187,28 @@
 [29/12/2022 21:19:22] Attempts left have been restored by "Administrateur" for all users.
 [29/12/2022 21:19:23] Attempts left have been restored by "Administrateur" for all users.
 [29/12/2022 21:19:29] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:25:34] An administrator has changed the password of "Utilisateur1".
+[29/12/2022 21:25:36] User "Administrateur" disconnected
+[29/12/2022 21:25:47] User "Utilisateur1" has 9 attempts left after decrement.
+[29/12/2022 21:25:53] User "Utilisateur1" has 8 attempts left after decrement.
+[29/12/2022 21:25:59] User "Utilisateur1" has 7 attempts left after decrement.
+[29/12/2022 21:26:05] User "Utilisateur1" has 6 attempts left after decrement.
+[29/12/2022 21:26:15] User "Administrateur" connected
+[29/12/2022 21:26:24] An administrator has changed the password of "Utilisateur1".
+[29/12/2022 21:26:26] User "Administrateur" disconnected
+[29/12/2022 21:26:30] User "Utilisateur1" has 9 attempts left after decrement.
+[29/12/2022 21:26:36] User "Utilisateur1" has 8 attempts left after decrement.
+[29/12/2022 21:26:42] User "Utilisateur1" has 7 attempts left after decrement.
+[29/12/2022 21:26:48] User "Utilisateur1" connected
+[29/12/2022 21:26:53] User "Utilisateur1" has 9 attempts left after decrement.
+[29/12/2022 21:26:58] User "Utilisateur1" has 8 attempts left after decrement.
+[29/12/2022 21:27:04] User "Utilisateur1" has changed his password.
+[29/12/2022 21:27:04] User "Utilisateur1" disconnected
+[29/12/2022 21:27:09] User "Utilisateur1" connected
+[29/12/2022 21:27:10] User "Utilisateur1" disconnected
+[29/12/2022 21:27:20] User "Administrateur" connected
+[29/12/2022 21:27:36] User "Administrateur" disconnected
+[29/12/2022 21:27:41] User "Utilisateur1" has 9 attempts left after decrement.
+[29/12/2022 21:27:47] User "Utilisateur1" connected
+[29/12/2022 21:27:53] User "Utilisateur1" disconnected
+[29/12/2022 21:28:03] User "Administrateur" connected

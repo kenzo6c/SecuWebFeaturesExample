@@ -1,47 +1,51 @@
 <?php
     require("lib/phpheader.php");
-    if (!$secu->hasAccess("root"))
+
+    function adminChangePassword()
     {
-        header("Location: noaccess.php");
-        exit();
-    }
-    if (!empty($_POST["submit"]))
-    {
-        if ($secu->isFormValid("fchgepass", ["username", "newpassword"]))
+        global $secu;
+        global $config;
+
+        if (!$secu->hasAccess("root"))
         {
-            $user = $_POST["fchgepass"]["username"];
-            $newpassword = $_POST["fchgepass"]["newpassword"];
-            if ($secu->checkIfUserExists($user))
-            {
-                if (!$secu->userIsRoot($user))
-                {
-                    $weakness = $secu->passwordWeakness($newpassword);
-                    if ($weakness === "None")
-                    {
-                        $secu->changePassword($user, $newpassword, $config["hashAlgorithm"], true);
-                        echo "The Password of \"" . $user . "\" has been changed.";
-                    }
-                    else
-                    {
-                        echo "Password is not strong enough.";
-                        echo "Weakness: " . $weakness;
-                    }
-                }
-                else
-                {
-                    echo "You can't force the password change of an administrator.";
-                }
-            }
-            else
-            {
-                echo "This user doesn't exist.";
-            }
+            header("Location: noaccess.php");
+            exit();
         }
-        else
+        if (empty($_POST["submit"])) # The user has just arrived on the page.
+        {
+            return;
+        }
+        if (!$secu->isFormValid("fchgepass", ["username", "newpassword"]))
         {
             echo "Invalid auth.";
+            return;
         }
+        $user = $_POST["fchgepass"]["username"];
+        $newpassword = $_POST["fchgepass"]["newpassword"];
+        if (!$secu->checkIfUserExists($user))
+        {
+            echo "This user doesn't exist.";
+            return;
+        }
+        if ($secu->userIsRoot($user))
+        {
+            echo "You can't force the password change of an administrator.";
+            return;
+        }
+        $weakness = $secu->passwordWeakness($newpassword);
+        if ($weakness !== "None")
+        {
+            echo "Password is not strong enough.";
+            echo "Weakness: " . $weakness;
+            return;
+        }
+
+        $secu->changePassword($user, $newpassword, $config["hashAlgorithm"], true);
+        echo "The Password of \"" . $user . "\" has been changed.";
     }
+
+    adminChangePassword();
+
 ?>
 
 <!DOCTYPE html>
