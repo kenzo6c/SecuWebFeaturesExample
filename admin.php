@@ -1,28 +1,40 @@
 <?php
     require("lib/phpheader.php");
-    if (!$secu->hasAccess("root"))
-    {
-        header("Location: noaccess.php");
-        exit();
-    }
 
 
-    if (!empty($_POST["restoreAttempts"]))
+    function adminPanel()
     {
-        if ($secu->isFormValid("restoreAttempts", []))
+        global $secu;
+        global $config;
+
+        if (!$secu->hasAccess("root"))
         {
-            $accounts = json_decode(file_get_contents("data/accounts.json"), true);
-            foreach ($accounts as &$account)
-            {
-                $account["attempts_left"] = $config["maxAttemptsAccount"];
-            }
-            file_put_contents("data/accounts.json", json_encode($accounts));
+            header("Location: noaccess.php");
+            exit();
         }
-        else
+        if (empty($_POST["restoreAttempts"])) # The user has just arrived on the page.
+        {
+            return;
+        }
+        if (!$secu->isFormValid("restoreAttempts", []))
         {
             echo "Invalid auth.";
+            return;
         }
+
+        $accounts = json_decode(file_get_contents("data/accounts.json"), true);
+        foreach ($accounts as &$account)
+        {
+            $account["attempts_left"] = $config["maxAttemptsAccount"];
+        }
+        file_put_contents("data/accounts.json", json_encode($accounts));
+
+        $secu->logger->printlog("Attempts left have been restored by \"" . $_SESSION["user"] . "\" for all users.");
+
     }
+
+    adminPanel();
+
 ?>
 
 <!DOCTYPE html>

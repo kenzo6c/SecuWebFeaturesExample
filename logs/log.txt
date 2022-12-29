@@ -178,3 +178,12 @@
 [29/12/2022 20:54:28] User "Administrateur" disconnected
 [29/12/2022 20:54:33] User "Administrateur" connected
 [29/12/2022 21:11:09] Configuration has been updated by "Administrateur".
+[29/12/2022 21:16:17] Configuration has been updated by "Administrateur".
+[29/12/2022 21:17:48] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:18:03] Configuration has been updated by "Administrateur".
+[29/12/2022 21:18:08] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:18:15] Configuration has been updated by "Administrateur".
+[29/12/2022 21:18:19] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:19:22] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:19:23] Attempts left have been restored by "Administrateur" for all users.
+[29/12/2022 21:19:29] Attempts left have been restored by "Administrateur" for all users.
