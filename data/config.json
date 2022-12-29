@@ -1,1 +1,1 @@
-{"maxAttemptsSession":5,"maxAttemptsAccount":10,"hashAlgorithm":"argon2id","CSRFTokenLength":64,"passwordminlength":8,"passwordmaxlength":64,"requireDigit":true,"requireLetter":true,"requireSymbol":false}
+{"attemptsWaitTime":5,"maxAttemptsSession":5,"maxAttemptsAccount":10,"hashAlgorithm":"argon2id","CSRFTokenLength":64,"passwordminlength":8,"passwordmaxlength":64,"requireDigit":true,"requireLetter":true,"requireSymbol":false}

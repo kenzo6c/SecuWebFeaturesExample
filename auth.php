@@ -1,21 +1,33 @@
 <?php
     require("lib/phpheader.php");
+
     if (!empty($_POST["submit"]))
     {
         print($_POST["submit"]);
         if ($secu->isFormValid("userauth", ["username", "password"]))
         {
             if ($secu->hasAttempts($_POST["userauth"]["username"]))
-                if ($secu->authUser($_POST["userauth"]))
+            {
+                $waitingTimeLeft = $secu->waitingTimeLeft();
+                if ($waitingTimeLeft > 0)
                 {
-                    print($_SESSION["user"]);
+                    $secu->disconnect();
+                    echo "Please wait " . $waitingTimeLeft . " seconds.";
                 }
                 else
                 {
-                    $secu->disconnect();
-                    $secu->decrementAttempts($_POST["userauth"]["username"]);
-                    echo "Wrong username or password";
+                    if ($secu->authUser($_POST["userauth"]))
+                    {
+                        print($_SESSION["user"]);
+                    }
+                    else
+                    {
+                        $secu->disconnect();
+                        $secu->decrementAttempts($_POST["userauth"]["username"]);
+                        echo "Wrong username or password";
+                    }
                 }
+            }
             else
             {
                 $secu->disconnect();
@@ -25,7 +37,6 @@
         else
         {
             $secu->disconnect();
-            $secu->decrementAttempts($_POST["userauth"]["username"]);
             echo "Invalid auth.";
         }
     }

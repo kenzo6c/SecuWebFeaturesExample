@@ -24,6 +24,7 @@
             $previous_max_attempts = $config["maxAttemptsAccount"];
 
             $config = [
+                "attemptsWaitTime" => intval($newconfig["attemptsWaitTime"]),
                 "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
                 "maxAttemptsAccount" => intval($newconfig["maxAttemptsAccount"]),
                 "hashAlgorithm" => $newconfig["hashAlgorithm"],
@@ -47,6 +48,12 @@
             }
             print_r($accounts["Utilisateur1"]["attempts_left"]);
             file_put_contents("data/accounts.json", json_encode($accounts));
+
+            if (!empty($_SESSION["waitingTime"]))
+            {
+                $_SESSION["waitingTime"] = 0;
+            }
+
             echo "done!";
             echo "Configuration has been updated.";
         }
@@ -77,6 +84,9 @@
             <div class="row">
                 <div class="column">
                     <form action="#" method="post" name="adminform">
+
+                        <label for="attemptsWaitTime" class="form-label">Temps d'attente entre deux essais :</label>
+                        <input type="number" name="newconfig[attemptsWaitTime]" id="attemptsWaitTime" class="form-control" value="<?= $config["attemptsWaitTime"]?>"><br/>
 
                         <label for="maxAttemptsSession" class="form-label">Nombre maximal d'essais par session :</label>
                         <input type="number" name="newconfig[maxAttemptsSession]" id="maxAttemptsSession" class="form-control" value="<?= $config["maxAttemptsSession"]?>"><br/>

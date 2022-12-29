@@ -18,6 +18,7 @@ class Security
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
         if (!isset($this->session["maxAttemptsSession"])) $this->session["maxAttemptsSession"] = $config["maxAttemptsSession"];
+        if (!isset($this->session["waitingTime"])) $this->session["waitingTime"] = 0;
     }
 
     private function resetCSRFToken()
@@ -225,6 +226,20 @@ class Security
         return true;
     }
 
+    public function waitingTimeLeft()
+    {
+        if (empty($this->session["waitingTime"]) || $this->session["waitingTime"] === 0)
+        {
+            return 0;
+        }
+        if (time() > $this->session["waitingTime"])
+        {
+            $this->session["waitingTime"] = 0;
+            return 0;
+        }
+        return $this->session["waitingTime"] - time();
+    }
+
     public function decrementAttempts($username)
     {
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
@@ -234,11 +249,14 @@ class Security
             $accountsData[$username]["attempts_left"] -= 1;
             file_put_contents("data/accounts.json", json_encode($accountsData));
             echo "Attempts left after decrement: " . $accountsData[$username]["attempts_left"] . "<br/>";
+            $this->logger->printlog('User "' . $username . '" has ' . $accountsData[$username]["attempts_left"] . ' attempts left after decrement.');
         }
         else
         {
-            echo "User not found (or is an administrator), decrement cancelled.<br/>";
+            $this->logger->printlog('User "' . $username . '" not found (or is an administrator) => no decrement.');
         }
+
+        $this->session["waitingTime"] = time() + $this->config["attemptsWaitTime"];
     }
 
     public function resetAttempts($username)

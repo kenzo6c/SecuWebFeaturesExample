@@ -8,28 +8,36 @@
             {
                 if ($secu->hasAttempts($_SESSION["user"]))
                 {
-                    if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
+                    $waitingTimeLeft = $secu->waitingTimeLeft();
+                    if ($waitingTimeLeft > 0)
                     {
-                        $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
-                        if ($weakness === "None")
-                        {
-                            $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
-                            $secu->disconnect();
-                            $_SESSION["passwordchanged"] = true;
-                            header("Location: passwordchanged.php");
-                            exit();
-                        }
-                        else
-                        {
-                            $secu->resetAttempts($_SESSION["user"]);
-                            echo "Password is not strong enough.";
-                            echo "Weakness: " . $weakness;
-                        }
+                        echo "Please wait " . $waitingTimeLeft . " seconds.";
                     }
                     else
                     {
-                        $secu->decrementAttempts($_SESSION["user"]);
-                        echo "Wrong password.";
+                        if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
+                        {
+                            $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
+                            if ($weakness === "None")
+                            {
+                                $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
+                                $secu->disconnect();
+                                $_SESSION["passwordchanged"] = true;
+                                header("Location: passwordchanged.php");
+                                exit();
+                            }
+                            else
+                            {
+                                $secu->resetAttempts($_SESSION["user"]);
+                                echo "Password is not strong enough.";
+                                echo "Weakness: " . $weakness;
+                            }
+                        }
+                        else
+                        {
+                            $secu->decrementAttempts($_SESSION["user"]);
+                            echo "Wrong password.";
+                        }
                     }
                 }
                 else
@@ -39,7 +47,6 @@
             }
             else
             {
-                $secu->decrementAttempts($_SESSION["user"]);
                 echo "Invalid auth.";
             }
         }
