@@ -65,7 +65,9 @@
                             <input type="submit" name="submit" class=" btn btn-primary" value="Changer le mot de passe">
                         </div>
                     </form>
-                </diV>
+
+                    <a href="index.php">Retourner à la page d'accueil</a>
+                </div>
             </div>
         </div>
     </body>

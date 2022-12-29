@@ -18,7 +18,7 @@
                     <h1 class="text-center">Accès refusé</h1>
                     <p> Vous ne pouvez pas accéder à cette page. </p>
                     <a href="index.php">Retourner à la page d'accueil</a>
-                </diV>
+                </div>
             </div>
         </div>
     </body>

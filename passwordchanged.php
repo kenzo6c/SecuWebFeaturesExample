@@ -26,7 +26,7 @@
                     <h1 class="text-center">Mot de passe modifié</h1>
                     <p> Le mot de passe a été modifié. </p>
                     <a href="index.php">Retourner à la page d'accueil</a>
-                </diV>
+                </div>
             </div>
         </div>
     </body>
