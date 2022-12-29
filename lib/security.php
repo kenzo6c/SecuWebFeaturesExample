@@ -112,6 +112,8 @@ class Security
             $this->logger->printlog('User "' . $user["username"] . '" connected');
 
             $this->session["user"] = $user["username"];
+            $this->session["access"] = $accountsData[$user["username"]]["access"];
+            $this->session["is_root"] = $accountsData[$user["username"]]["is_root"];
             $this->session["loggedin"] = true;
             return true;
 
@@ -141,13 +143,13 @@ class Security
         file_put_contents("data/accounts.json", json_encode($accountsData));
     }
 
-    public function checkAccess($requiredLevel)
+    public function hasAccess($requiredAccess)
     {
-        if (empty($this->session["level"]) || !is_numeric($this->session["level"]) || $this->session["level"] < $requiredLevel)
+        if ($this->session["is_root"] || (!empty($_SESSION["access"]) && in_array($requiredAccess, $this->session["access"], true)))
         {
-            header("Location: index.php");
-            exit();
+            return true;
         }
+        return false;
     }
 
     public function disconnect()
@@ -157,6 +159,8 @@ class Security
             $this->logger->printlog('User "' . $this->session["user"] . '" disconnected');
         }
         $this->session["user"] = null;
+        $this->session["access"] = null;
+        $this->session["is_root"] = false;
         $this->session["loggedin"] = false;
         $this->resetCSRFToken();
     }

@@ -1,5 +1,10 @@
 <?php
     require("lib/phpheader.php");
+    if (!$secu->hasAccess("clients_res"))
+    {
+        header("Location: noaccess.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>

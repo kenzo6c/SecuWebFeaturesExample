@@ -39,19 +39,25 @@ Use the following code to generate the password:
             "username" =>  $AdminName,
             "hash" => $AdminHash,
             "algoPHP" => $AdminInfo["algo"],
-            "algoHuman" => $AdminInfo["algoName"]
+            "algoHuman" => $AdminInfo["algoName"],
+            "access" => [],
+            "is_root" => true
         ],
         $U1Name => [
             "username" =>  $U1Name,
             "hash" => $U1Hash,
             "algoPHP" => $AdminInfo["algoName"],
-            "algoHuman" => "Argon2id"
+            "algoHuman" => "Argon2id",
+            "access" => ["clients_res"],
+            "is_root" => false
         ],
         $U2Name => [
             "username" => $U2Name,
             "hash" => $U2Hash,
             "algoPHP" => $AdminInfo["algoName"],
-            "algoHuman" => "Argon2id"
+            "algoHuman" => "Argon2id",
+            "access" => ["clients_aff"],
+            "is_root" => false
         ],
     ];
 

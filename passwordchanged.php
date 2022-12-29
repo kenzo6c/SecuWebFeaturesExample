@@ -6,6 +6,7 @@
         header("Location: index.php");
         exit();
     }
+    $_SESSION["passwordchanged"] = false;
 ?>
 
 <!DOCTYPE html>
