@@ -11,3 +11,4 @@
 [29/12/2022 01:26:45] User "Administrateur" changed his password.
 [29/12/2022 01:26:45] User "Administrateur" disconnected
 [29/12/2022 01:26:48] User "Administrateur" connected
+[29/12/2022 01:28:35] User "Administrateur" disconnected

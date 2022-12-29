@@ -99,8 +99,6 @@
                             <a href="changepassword.php" class="btn btn-primary" value="Se connecter">Changer de mot de passe</a>
                         </div>
                     </form>
-
-                    <a href="index.php">Retourner à la page d'accueil</a>
                 </div>
             </div>
         </div>

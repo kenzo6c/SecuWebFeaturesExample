@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Mot de passe modifié</h1>
-                    <p>Le mot de passe a été modifié.</p>
+                    <p>Votre mot de passe a été modifié.</p>
                     <a href="index.php">Retourner à la page d'accueil</a>
                 </div>
             </div>

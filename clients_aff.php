@@ -50,8 +50,6 @@
                             }?>
                         </tbody>
                     </table>
-
-                    <a href="index.php">Retourner à la page d'accueil</a>
                 </div>
             </div>
         </div>
