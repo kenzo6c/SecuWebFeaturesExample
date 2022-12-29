@@ -161,3 +161,11 @@
 [29/12/2022 20:33:06] User "Administrateur" not found (or is an administrator) => no decrement.
 [29/12/2022 20:33:25] User "Administrateur" not found (or is an administrator) => no decrement.
 [29/12/2022 20:33:30] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:41:58] User "Administrateur" disconnected
+[29/12/2022 20:43:28] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:43:34] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:43:43] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:43:51] User "Utilisateur1" has 3 attempts left after decrement.
+[29/12/2022 20:44:02] User "Utilisateur2" has 9 attempts left after decrement.
+[29/12/2022 20:44:07] User "Utilisateur2" has 8 attempts left after decrement.
+[29/12/2022 20:44:19] User "Administrateur" connected

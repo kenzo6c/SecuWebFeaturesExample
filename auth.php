@@ -1,50 +1,51 @@
 <?php
     require("lib/phpheader.php");
 
-    if (!empty($_POST["submit"]))
+    function auth()
     {
-        print($_POST["submit"]);
-        if ($secu->isFormValid("userauth", ["username", "password"]))
+        global $secu;
+        global $config;
+
+        if (!empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
         {
-            if ($secu->hasAttempts($_POST["userauth"]["username"]))
-            {
-                $waitingTimeLeft = $secu->waitingTimeLeft();
-                if ($waitingTimeLeft > 0)
-                {
-                    $secu->disconnect();
-                    echo "Please wait " . $waitingTimeLeft . " seconds.";
-                }
-                else
-                {
-                    if ($secu->authUser($_POST["userauth"]))
-                    {
-                        print($_SESSION["user"]);
-                    }
-                    else
-                    {
-                        $secu->disconnect();
-                        $secu->decrementAttempts($_POST["userauth"]["username"]);
-                        echo "Wrong username or password";
-                    }
-                }
-            }
-            else
-            {
-                $secu->disconnect();
-                echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
-            }
+            header("Location: index.php");
+            exit();
         }
-        else
+        if (empty($_POST["submit"])) # The user has just arrived on the page.
+        {
+            return;
+        }
+        if (!$secu->isFormValid("userauth", ["username", "password"]))
         {
             $secu->disconnect();
             echo "Invalid auth.";
+            return;
         }
-    }
-    elseif ($_SESSION["loggedin"])
-    {
-        echo "Already logged in.";
+        if (!$secu->hasAttempts($_POST["userauth"]["username"]))
+        {
+            $secu->disconnect();
+            echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
+            return;
+        }
+        $waitingTimeLeft = $secu->waitingTimeLeft();
+        if ($waitingTimeLeft > 0)
+        {
+            $secu->disconnect();
+            echo "Please wait " . $waitingTimeLeft . " seconds.";
+            return;
+        }
+        if (!$secu->authUser($_POST["userauth"]))
+        {
+            $secu->disconnect();
+            $secu->decrementAttempts($_POST["userauth"]["username"]);
+            echo "Wrong username or password";
+            return;
+        }
+
+        print($_SESSION["user"]);
     }
 
+    auth();
 ?>
 <!DOCTYPE html>
 <html>
