@@ -4,3 +4,10 @@
 [29/12/2022 00:19:38] User "Administrateur" disconnected
 [29/12/2022 00:20:20] User "Utilisateur1" connected
 [29/12/2022 00:21:01] User "Utilisateur2" connected
+[29/12/2022 01:25:47] User "Administrateur" connected
+[29/12/2022 01:26:03] User "Administrateur" changed his password.
+[29/12/2022 01:26:03] User "Administrateur" disconnected
+[29/12/2022 01:26:24] User "Administrateur" connected
+[29/12/2022 01:26:45] User "Administrateur" changed his password.
+[29/12/2022 01:26:45] User "Administrateur" disconnected
+[29/12/2022 01:26:48] User "Administrateur" connected

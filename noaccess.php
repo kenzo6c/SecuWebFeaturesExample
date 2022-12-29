@@ -11,6 +11,10 @@
         <title>Erreur - Accès refusé</title>
     </head>
     <body>
+        <?php
+            require_once("navbar.php")
+        ?>
+
         <br/>
         <div class="container">
             <div class="row">
@@ -21,5 +25,7 @@
                 </div>
             </div>
         </div>
+
+        <script src="js/bootstrap.min.js"></script>
     </body>
 </html>
