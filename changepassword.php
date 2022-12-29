@@ -1,61 +1,59 @@
 <?php
     require("lib/phpheader.php");
-    if ($_SESSION["loggedin"])
+
+    function changePassword()
     {
-        if (!empty($_POST["submit"]))
+        global $secu;
+        global $config;
+
+        if (!$_SESSION["loggedin"])
         {
-            if ($secu->isFormValid("chgepass", ["old", "new"]))
-            {
-                if ($secu->hasAttempts($_SESSION["user"]))
-                {
-                    $waitingTimeLeft = $secu->waitingTimeLeft();
-                    if ($waitingTimeLeft > 0)
-                    {
-                        echo "Please wait " . $waitingTimeLeft . " seconds.";
-                    }
-                    else
-                    {
-                        if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
-                        {
-                            $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
-                            if ($weakness === "None")
-                            {
-                                $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
-                                $secu->disconnect();
-                                $_SESSION["passwordchanged"] = true;
-                                header("Location: passwordchanged.php");
-                                exit();
-                            }
-                            else
-                            {
-                                $secu->resetAttempts($_SESSION["user"]);
-                                echo "Password is not strong enough.";
-                                echo "Weakness: " . $weakness;
-                            }
-                        }
-                        else
-                        {
-                            $secu->decrementAttempts($_SESSION["user"]);
-                            echo "Wrong password.";
-                        }
-                    }
-                }
-                else
-                {
-                    echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
-                }
-            }
-            else
-            {
-                echo "Invalid auth.";
-            }
+            header("Location: noaccess.php");
+            exit();
         }
-    }
-    else
-    {
-        header("Location: noaccess.php");
+        if (empty($_POST["submit"])) # The user has just arrived on the page.
+        {
+            return;
+        }
+        if (!$secu->isFormValid("chgepass", ["old", "new"]))
+        {
+            echo "Invalid auth.";
+            return;
+        }
+        if (!$secu->hasAttempts($_SESSION["user"]))
+        {
+            echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
+            return;
+        }
+        $waitingTimeLeft = $secu->waitingTimeLeft();
+        if ($waitingTimeLeft > 0)
+        {
+            echo "Please wait " . $waitingTimeLeft . " seconds.";
+            return;
+        }
+        if (!$secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
+        {
+            $secu->decrementAttempts($_SESSION["user"]);
+            echo "Wrong password.";
+            return;
+        }
+        $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
+        if ($weakness !== "None")
+        {
+            $secu->resetAttempts($_SESSION["user"]);
+            echo "Password is not strong enough.";
+            echo "Weakness: " . $weakness;
+            return;
+        }
+
+        $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
+        $secu->disconnect();
+        $_SESSION["passwordchanged"] = true;
+        header("Location: passwordchanged.php");
         exit();
     }
+
+    changePassword();
 ?>
 
 <!DOCTYPE html>

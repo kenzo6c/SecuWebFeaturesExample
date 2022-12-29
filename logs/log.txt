@@ -169,3 +169,11 @@
 [29/12/2022 20:44:02] User "Utilisateur2" has 9 attempts left after decrement.
 [29/12/2022 20:44:07] User "Utilisateur2" has 8 attempts left after decrement.
 [29/12/2022 20:44:19] User "Administrateur" connected
+[29/12/2022 20:53:35] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:54:03] User "Administrateur" has changed his password.
+[29/12/2022 20:54:03] User "Administrateur" disconnected
+[29/12/2022 20:54:12] User "Administrateur" connected
+[29/12/2022 20:54:19] User "Administrateur" not found (or is an administrator) => no decrement.
+[29/12/2022 20:54:28] User "Administrateur" has changed his password.
+[29/12/2022 20:54:28] User "Administrateur" disconnected
+[29/12/2022 20:54:33] User "Administrateur" connected
