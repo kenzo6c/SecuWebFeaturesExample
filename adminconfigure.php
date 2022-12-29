@@ -1,67 +1,66 @@
 <?php
     require("lib/phpheader.php");
-    if (!$secu->hasAccess("root"))
-    {
-        header("Location: noaccess.php");
-        exit();
-    }
 
-    if (!empty($_POST["newconfig"]))
+    function adminChangePassword()
     {
-        print_r($_POST["newconfig"]);
-    }
-    else
-    {
-        echo "No new config";
-    }
+        global $secu;
+        global $config;
 
-    if (!empty($_POST["submit"]))
-    {
-        if ($secu->isFormValid("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
+        if (!$secu->hasAccess("root"))
         {
-            $newconfig = $_POST["newconfig"];
-
-            $previous_max_attempts = $config["maxAttemptsAccount"];
-
-            $config = [
-                "attemptsWaitTime" => intval($newconfig["attemptsWaitTime"]),
-                "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
-                "maxAttemptsAccount" => intval($newconfig["maxAttemptsAccount"]),
-                "hashAlgorithm" => $newconfig["hashAlgorithm"],
-                "CSRFTokenLength" => intval($newconfig["CSRFTokenLength"]),
-                "passwordminlength" => intval($newconfig["passwordminlength"]),
-                "passwordmaxlength" => intval($newconfig["passwordmaxlength"]),
-                "requireDigit" => isset($newconfig["requireDigit"]) && $newconfig["requireDigit"] === "1" ? true : false,
-                "requireLetter" => isset($newconfig["requireLetter"]) && $newconfig["requireLetter"] === "1" ? true : false,
-                "requireSymbol" => isset($newconfig["requireSymbol"]) && $newconfig["requireSymbol"] === "1" ? true : false
-            ];
-            file_put_contents("data/config.json", json_encode($config));
-
-            $accounts = json_decode(file_get_contents("data/accounts.json"), true);
-            foreach ($accounts as &$account)
-            {
-                if ($account["attempts_left"] > $config["maxAttemptsAccount"])
-                {
-                    $account["attempts_left"] = $config["maxAttemptsAccount"];
-                    echo "yo" . $account["username"] . " - left:". $account["attempts_left"] . "yo" . "<br/>";
-                }
-            }
-            print_r($accounts["Utilisateur1"]["attempts_left"]);
-            file_put_contents("data/accounts.json", json_encode($accounts));
-
-            if (!empty($_SESSION["waitingTime"]))
-            {
-                $_SESSION["waitingTime"] = 0;
-            }
-
-            echo "done!";
-            echo "Configuration has been updated.";
+            header("Location: noaccess.php");
+            exit();
         }
-        else
+        if (empty($_POST["submit"])) # The user has just arrived on the page.
+        {
+            return;
+        }
+        if (!$secu->isFormValid("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
             echo "Invalid auth.";
+            return;
         }
+
+
+        $newconfig = $_POST["newconfig"];
+
+        $previous_max_attempts = $config["maxAttemptsAccount"];
+
+        $config = [
+            "attemptsWaitTime" => intval($newconfig["attemptsWaitTime"]),
+            "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
+            "maxAttemptsAccount" => intval($newconfig["maxAttemptsAccount"]),
+            "hashAlgorithm" => $newconfig["hashAlgorithm"],
+            "CSRFTokenLength" => intval($newconfig["CSRFTokenLength"]),
+            "passwordminlength" => intval($newconfig["passwordminlength"]),
+            "passwordmaxlength" => intval($newconfig["passwordmaxlength"]),
+            "requireDigit" => isset($newconfig["requireDigit"]) && $newconfig["requireDigit"] === "1" ? true : false,
+            "requireLetter" => isset($newconfig["requireLetter"]) && $newconfig["requireLetter"] === "1" ? true : false,
+            "requireSymbol" => isset($newconfig["requireSymbol"]) && $newconfig["requireSymbol"] === "1" ? true : false
+        ];
+        file_put_contents("data/config.json", json_encode($config));
+
+        $accounts = json_decode(file_get_contents("data/accounts.json"), true);
+        foreach ($accounts as &$account)
+        {
+            if ($account["attempts_left"] > $config["maxAttemptsAccount"])
+            {
+                $account["attempts_left"] = $config["maxAttemptsAccount"];
+            }
+        }
+        file_put_contents("data/accounts.json", json_encode($accounts));
+
+        if (!empty($_SESSION["waitingTime"]))
+        {
+            $_SESSION["waitingTime"] = 0;
+        }
+
+        echo "Configuration has been updated.";
+        $secu->logger->printlog("Configuration has been updated by \"" . $_SESSION["user"] . "\".");
+
     }
+
+    adminChangePassword();
 ?>
 
 <!DOCTYPE html>
