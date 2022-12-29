@@ -121,6 +121,17 @@ class Security
         return false;
     }
 
+    public function checkIfUserExists($username)
+    {
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+
+        if (isset($accountsData[$username]))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function verifyPassword($username, $password)
     {
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
@@ -158,14 +169,32 @@ class Security
         return "None";
     }
 
-    public function changePassword($username, $newPassword, $hashAlgorithm)
+    public function changePassword($username, $newPassword, $hashAlgorithm, $forced=false)
     {
-        $this->logger->printlog('User "' . $username . '" changed his password.');
+        if ($forced)
+        {
+            $this->logger->printlog('An administrator has changed the password of "' . $username . '".');
+        }
+        else
+        {
+            $this->logger->printlog('User "' . $username . '" has changed his password.');
+        }
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         $accountsData[$username]["hash"] = password_hash($newPassword, $hashAlgorithm);
 
         file_put_contents("data/accounts.json", json_encode($accountsData));
+    }
+
+    public function userIsRoot($username)
+    {
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+
+        if ($accountsData[$username]["is_root"])
+        {
+            return true;
+        }
+        return false;
     }
 
     public function hasAccess($requiredAccess)

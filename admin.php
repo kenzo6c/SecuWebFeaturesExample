@@ -23,6 +23,15 @@
 
         <br/>
         <div class="container">
+
+            <div class="row">
+                <div class="column">
+                    <p>
+                        <a href="changepasswordforced.php">Forcer le changement de mot de passe d'un utilisateur</a><br/>
+                    </p>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Liste des utilisateurs et infos</h1>
@@ -52,6 +61,10 @@
                             }?>
                         </tbody>
                     </table>
+
+                    <p>
+                        Remarque : le sel (salt) des mots de passe est contenu dans le hash avec l'utilisation de la fonction password_hash() de PHP.
+                    </p>
                 </div>
             </div>
         </div>
