@@ -1,7 +1,7 @@
 <?php
     require("lib/phpheader.php");
 
-    function adminChangePassword()
+    function adminConfigure()
     {
         global $secu;
         global $config;
@@ -60,7 +60,7 @@
 
     }
 
-    adminChangePassword();
+    adminConfigure();
 ?>
 
 <!DOCTYPE html>
