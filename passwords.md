@@ -48,7 +48,7 @@ Use the following code to generate the password:
             "hash" => $U1Hash,
             "algoPHP" => $AdminInfo["algoName"],
             "algoHuman" => "Argon2id",
-            "access" => ["clients_res"],
+            "access" => ["clients_res", "user"],
             "is_root" => false
         ],
         $U2Name => [
@@ -56,7 +56,7 @@ Use the following code to generate the password:
             "hash" => $U2Hash,
             "algoPHP" => $AdminInfo["algoName"],
             "algoHuman" => "Argon2id",
-            "access" => ["clients_aff"],
+            "access" => ["clients_aff", "user"],
             "is_root" => false
         ],
     ];

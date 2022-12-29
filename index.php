@@ -21,7 +21,7 @@
                     <h1 class="text-center">Accueil</h1>
 
                     <p>
-                        <a href="">Panneau d'administration</a><br/>
+                        <a href="admin.php">Panneau d'administration</a><br/>
                         <a href="clients_res.php">Liste des clients résidentiels</a><br/>
                         <a href="clients_aff.php">Liste des clients d'affaire</a><br/>
                     </p>
