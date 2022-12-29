@@ -3,9 +3,11 @@
 
     function adminChangePassword()
     {
+        # --- Global variables ---
         global $secu;
         global $config;
 
+        # --- Guard Clauses ---
         if (!$secu->hasAccess("root"))
         {
             header("Location: noaccess.php");
@@ -17,7 +19,7 @@
         }
         if (!$secu->isFormValid("fchgepass", ["username", "newpassword"]))
         {
-            echo "Invalid auth.";
+            echo "Invalid form.";
             return;
         }
         $user = $_POST["fchgepass"]["username"];
@@ -40,6 +42,7 @@
             return;
         }
 
+        # --- Functionnal code ---
         $secu->changePassword($user, $newpassword, $config["hashAlgorithm"], true);
         echo "The Password of \"" . $user . "\" has been changed.";
     }

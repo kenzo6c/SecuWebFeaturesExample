@@ -1,12 +1,13 @@
 <?php
     require("lib/phpheader.php");
 
-
     function adminPanel()
     {
+        # --- Global variables ---
         global $secu;
         global $config;
 
+        # --- Guard Clauses ---
         if (!$secu->hasAccess("root"))
         {
             header("Location: noaccess.php");
@@ -18,10 +19,11 @@
         }
         if (!$secu->isFormValid("restoreAttempts", []))
         {
-            echo "Invalid auth.";
+            echo "Invalid form.";
             return;
         }
 
+        # --- Functionnal code ---
         $accounts = json_decode(file_get_contents("data/accounts.json"), true);
         foreach ($accounts as &$account)
         {

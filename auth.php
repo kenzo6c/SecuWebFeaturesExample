@@ -3,9 +3,11 @@
 
     function auth()
     {
+        # --- Global variables ---
         global $secu;
         global $config;
 
+        # --- Guard Clauses ---
         if (!empty($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)
         {
             header("Location: index.php");
@@ -18,7 +20,7 @@
         if (!$secu->isFormValid("userauth", ["username", "password"]))
         {
             $secu->disconnect();
-            echo "Invalid auth.";
+            echo "Invalid form.";
             return;
         }
         if (!$secu->hasAttempts($_POST["userauth"]["username"]))
@@ -42,6 +44,7 @@
             return;
         }
 
+        # --- Functionnal code ---
         print($_SESSION["user"]);
     }
 
@@ -83,10 +86,6 @@
                         <div>
                             <br/>
                             <input type="submit" name="submit" class=" btn btn-primary" value="Se connecter">
-                        </div>
-                        <div>
-                            <br/>
-                            <a href="changepassword.php" class="btn btn-primary" value="Se connecter">Changer de mot de passe</a>
                         </div>
                     </form>
                 </div>

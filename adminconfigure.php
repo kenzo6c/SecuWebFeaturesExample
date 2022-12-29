@@ -3,9 +3,11 @@
 
     function adminConfigure()
     {
+        # --- Global variables ---
         global $secu;
         global $config;
 
+        # --- Guard Clauses ---
         if (!$secu->hasAccess("root"))
         {
             header("Location: noaccess.php");
@@ -17,11 +19,11 @@
         }
         if (!$secu->isFormValid("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
-            echo "Invalid auth.";
+            echo "Invalid form.";
             return;
         }
 
-
+        # --- Functionnal code ---
         $newconfig = $_POST["newconfig"];
 
         $previous_max_attempts = $config["maxAttemptsAccount"];

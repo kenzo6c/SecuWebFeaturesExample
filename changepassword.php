@@ -3,9 +3,11 @@
 
     function changePassword()
     {
+        # --- Global variables ---
         global $secu;
         global $config;
 
+        # --- Guard Clauses ---
         if (!$_SESSION["loggedin"])
         {
             header("Location: noaccess.php");
@@ -17,7 +19,7 @@
         }
         if (!$secu->isFormValid("chgepass", ["old", "new"]))
         {
-            echo "Invalid auth.";
+            echo "Invalid form.";
             return;
         }
         if (!$secu->hasAttempts($_SESSION["user"]))
@@ -46,6 +48,7 @@
             return;
         }
 
+        # --- Functionnal code ---
         $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
         $secu->disconnect();
         $_SESSION["passwordchanged"] = true;
