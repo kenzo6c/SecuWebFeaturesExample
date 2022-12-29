@@ -72,7 +72,7 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Page d'authentification</h1>
-                    <p> Entrez votre nom d'utilisateur et votre mot de passe.</p>
+                    <p>Entrez votre nom d'utilisateur et votre mot de passe.</p>
                     <form action="#" method="post" name="authform">
                         <div>
                             <label for="username" class="form-label">Nom d'utilisateur :</label>

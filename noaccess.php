@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Accès refusé</h1>
-                    <p> Vous ne pouvez pas accéder à cette page. </p>
+                    <p>Vous ne pouvez pas accéder à cette page.</p>
                     <a href="index.php">Retourner à la page d'accueil</a>
                 </div>
             </div>

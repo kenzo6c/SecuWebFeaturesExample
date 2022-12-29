@@ -47,7 +47,7 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Changement de mot de passe</h1>
-                    <p> Entrez votre ancien mot de passe et celui par lequel vous souhaitez le remplacer.</p>
+                    <p>Entrez votre ancien mot de passe et celui par lequel vous souhaitez le remplacer.</p>
                     <form action="#" method="post" name="authform">
                         <div>
                             <label for="oldpasswrd" class="form-label">Ancien mot de passe :</label>
