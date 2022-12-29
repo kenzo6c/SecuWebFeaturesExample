@@ -182,6 +182,11 @@ class Security
         $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
 
         $accountsData[$username]["hash"] = password_hash($newPassword, $hashAlgorithm);
+        $hashInfo = password_get_info($accountsData[$username]["hash"]);
+        $accountsData[$username]["algoPHP"] = $hashInfo["algo"];
+        $accountsData[$username]["algoHuman"] = $hashInfo["algoName"];
+
+
 
         file_put_contents("data/accounts.json", json_encode($accountsData));
     }

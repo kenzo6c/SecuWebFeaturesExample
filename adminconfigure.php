@@ -5,23 +5,23 @@
         header("Location: noaccess.php");
         exit();
     }
-    # Confiugre the $config array with the new values coming from the POST request
+
+    print_r($_POST["newconfig"]);
     if (!empty($_POST["submit"]))
     {
-        if ($secu->isFormValid("newconfig", ["maxNbrOfAttempts", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength", "requireDigit", "requireLetter", "requireSymbol"]))
+        if ($secu->isFormValid("newconfig", ["maxNbrOfAttempts", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
             $newconfig = $_POST["newconfig"];
 
-            # create the $config array with the new values
             $config = [
                 "maxNbrOfAttempts" => intval($newconfig["maxNbrOfAttempts"]),
                 "hashAlgorithm" => $newconfig["hashAlgorithm"],
                 "CSRFTokenLength" => intval($newconfig["CSRFTokenLength"]),
                 "passwordminlength" => intval($newconfig["passwordminlength"]),
                 "passwordmaxlength" => intval($newconfig["passwordmaxlength"]),
-                "requireDigit" => $newconfig["requireDigit"] === "1" ? true : false,
-                "requireLetter" => $newconfig["requireLetter"] === "1" ? true : false,
-                "requireSymbol" => $newconfig["requireSymbol"] === "1" ? true : false
+                "requireDigit" => isset($newconfig["requireDigit"]) && $newconfig["requireDigit"] === "1" ? true : false,
+                "requireLetter" => isset($newconfig["requireLetter"]) && $newconfig["requireLetter"] === "1" ? true : false,
+                "requireSymbol" => isset($newconfig["requireSymbol"]) && $newconfig["requireSymbol"] === "1" ? true : false
             ];
             file_put_contents("data/config.json", json_encode($config));
 
@@ -53,15 +53,15 @@
 
             <div class="row">
                 <div class="column">
-                    <form action="admin.php" method="post">
+                    <form action="#" method="post" name="adminform">
                         <label for="maxNbrOfAttempts" class="form-label">Nombre maximal d'essais :</label>
                         <input type="number" name="newconfig[maxNbrOfAttempts]" id="maxNbrOfAttempts" class="form-control" value="<?= $config["maxNbrOfAttempts"]?>"><br/>
 
                         <label for="hashAlgorithm" class="form-label">Algorithme de hashage :</label>
                         <select name="newconfig[hashAlgorithm]" id="hashAlgorithm" class="form-select">
-                            <option value="PASSWORD_BCRYPT" <?= $config["hashAlgorithm"] === PASSWORD_BCRYPT ? "selected" : ""?>>PASSWORD_BCRYPT</option>
-                            <option value="PASSWORD_ARGON2I" <?= $config["hashAlgorithm"] === PASSWORD_ARGON2I ? "selected" : ""?>>PASSWORD_ARGON2I</option>
-                            <option value="PASSWORD_ARGON2ID" <?= $config["hashAlgorithm"] === PASSWORD_ARGON2ID ? "selected" : ""?>>PASSWORD_ARGON2ID</option>
+                            <option value= <?=PASSWORD_BCRYPT?> <?= $config["hashAlgorithm"] === PASSWORD_BCRYPT ? "selected" : ""?>>PASSWORD_BCRYPT</option>
+                            <option value= <?=PASSWORD_ARGON2I?> <?= $config["hashAlgorithm"] === PASSWORD_ARGON2I ? "selected" : ""?>>PASSWORD_ARGON2I</option>
+                            <option value= <?=PASSWORD_ARGON2ID?> <?= $config["hashAlgorithm"] === PASSWORD_ARGON2ID ? "selected" : ""?>>PASSWORD_ARGON2ID</option>
                         </select><br/>
 
                         <label for="CSRFTokenLength" class="form-label">Longueur du token CSRF :</label>
@@ -82,10 +82,12 @@
                         <br/>
 
                         <label for="requireSymbol" class="form-check-label">Exiger un symbole dans le mot de passe :</label>
-                        <input type="checkbox" name="newconfig[requireSymbol]" id="requireSymbol" class="form-check-input" value="1" <?= $config["requireSymbol"] ? "checked" : ""?>><br/>
+                        <input type="checkbox" name="newconfig[requireLetter]" id="requireSymbol" class="form-check-input" value="1" <?= $config["requireSymbol"] ? "checked" : ""?>><br/>
                         <br/>
 
-                        <button type="submit" class="btn btn-warning">Mettre à jour la configuration</button><br/><br/>
+                        <?php $secu->insertCSRFField(); ?>
+
+                        <input type="submit" name="submit" class=" btn btn-warning" value="Mettre à jour la configuration"><br/><br/>
                     </form>
                 </div>
             </div>

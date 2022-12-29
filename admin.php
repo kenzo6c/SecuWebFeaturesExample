@@ -41,7 +41,7 @@
                         <thead>
                             <tr class="table-primary">
                                 <th scope="col">Nom d'utilisateur</th>
-                                <th scope="col">Hash</th>
+                                <th scope="col">Hash - (contient : l'algorithme, les paramètres, le sel, le hash pur)</th>
                                 <th scole="col">Algorithme utilisé</th>
                                 <th scole="col">Accès</th>
                             </tr>

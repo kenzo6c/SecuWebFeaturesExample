@@ -79,3 +79,25 @@
 [29/12/2022 03:29:19] User "Administrateur" connected
 [29/12/2022 03:29:22] User "Administrateur" disconnected
 [29/12/2022 03:29:26] User "Administrateur" connected
+[29/12/2022 03:37:49] User "Administrateur" disconnected
+[29/12/2022 03:38:00] User "Administrateur" connected
+[29/12/2022 03:40:52] User "Utilisateur1" has changed his password.
+[29/12/2022 03:44:46] User "Utilisateur1" has changed his password.
+[29/12/2022 03:44:48] User "Administrateur" disconnected
+[29/12/2022 03:44:55] User "Utilisateur1" connected
+[29/12/2022 03:45:04] User "Utilisateur1" has changed his password.
+[29/12/2022 03:45:04] User "Utilisateur1" disconnected
+[29/12/2022 03:45:20] User "Administrateur" connected
+[29/12/2022 03:50:17] User "Utilisateur1" has changed his password.
+[29/12/2022 03:53:56] User "Utilisateur1" has changed his password.
+[29/12/2022 03:54:08] User "Administrateur" disconnected
+[29/12/2022 03:54:15] User "Utilisateur1" connected
+[29/12/2022 03:54:18] User "Utilisateur1" has changed his password.
+[29/12/2022 03:54:18] User "Utilisateur1" disconnected
+[29/12/2022 03:54:34] User "Utilisateur1" connected
+[29/12/2022 03:54:38] User "Utilisateur1" disconnected
+[29/12/2022 03:54:51] User "Utilisateur1" connected
+[29/12/2022 03:55:01] User "Utilisateur1" disconnected
+[29/12/2022 03:55:12] User "Administrateur" connected
+[29/12/2022 03:55:43] User "Utilisateur1" has changed his password.
+[29/12/2022 03:55:58] User "Utilisateur1" has changed his password.

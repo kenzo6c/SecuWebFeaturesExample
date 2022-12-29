@@ -29,16 +29,16 @@
         $U1Name => [
             "username" =>  $U1Name,
             "hash" => $U1Hash,
-            "algoPHP" => $AdminInfo["algoName"],
-            "algoHuman" => "Argon2id",
+            "algoPHP" => $AdminInfo["algo"],
+            "algoHuman" => $AdminInfo["algoName"],
             "access" => ["clients_res", "user"],
             "is_root" => false
         ],
         $U2Name => [
             "username" => $U2Name,
             "hash" => $U2Hash,
-            "algoPHP" => $AdminInfo["algoName"],
-            "algoHuman" => "Argon2id",
+            "algoPHP" => $AdminInfo["algo"],
+            "algoHuman" => $AdminInfo["algoName"],
             "access" => ["clients_aff", "user"],
             "is_root" => false
         ],
