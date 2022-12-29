@@ -8,11 +8,20 @@
             {
                 if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
                 {
-                    $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
-                    $secu->disconnect();
-                    $_SESSION["passwordchanged"] = true;
-                    header("Location: passwordchanged.php");
-                    exit();
+                    $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
+                    if ($weakness === "None")
+                    {
+                        $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
+                        $secu->disconnect();
+                        $_SESSION["passwordchanged"] = true;
+                        header("Location: passwordchanged.php");
+                        exit();
+                    }
+                    else
+                    {
+                        echo "Password is not strong enough.";
+                        echo "Weakness: " . $weakness;
+                    }
                 }
                 else
                 {
@@ -27,7 +36,7 @@
     }
     else
     {
-        require("noaccess.php");
+        header("Location: noaccess.php");
         exit();
     }
 ?>
@@ -56,11 +65,11 @@
                     <form action="#" method="post" name="authform">
                         <div>
                             <label for="oldpasswrd" class="form-label">Ancien mot de passe :</label>
-                            <input id ="oldpasswrd" type="password" name="chgepass[old]" class="form-control" placeholder="Ancien mot de passe" minlength=8 maxlenght=64 required>
+                            <input id ="oldpasswrd" type="password" name="chgepass[old]" class="form-control" placeholder="Ancien mot de passe" required>
                         </div>
                         <div>
                             <label for="newpassword" class="form-label">Nouveau mot de passe :</label>
-                            <input id ="newpassword" type="password" name="chgepass[new]" class="form-control" placeholder="Nouveau mot de passe" minlength=8 maxlength=64 required>
+                            <input id ="newpassword" type="password" name="chgepass[new]" class="form-control" placeholder="Nouveau mot de passe" required>
                         </div>
                         <div>
                             <?php $secu->insertCSRFField(); ?>

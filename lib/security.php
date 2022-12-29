@@ -7,22 +7,22 @@ class Security
 
     private $CSRFTokenName = "CSRFtoken";
 
-    public function __construct($nbrOfAttempts, $CSRFTokenLength)
+    public function __construct($config)
     {
         $this->server = &$_SERVER;
         $this->session = &$_SESSION;
         $this->post = &$_POST;
-        $this->CSRFTokenLength = $CSRFTokenLength;
 
         $this->logger = new Logger();
+        $this->config = &$config;
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
-        if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $nbrOfAttempts;
+        if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $config["maxNbrOfAttempts"];
     }
 
     private function resetCSRFToken()
     {
-        $this->session[$this->CSRFTokenName] = bin2hex(openssl_random_pseudo_bytes($this->CSRFTokenLength));
+        $this->session[$this->CSRFTokenName] = bin2hex(openssl_random_pseudo_bytes($this->config["CSRFTokenLength"]));
     }
 
     private function getCSRFToken()
@@ -131,6 +131,31 @@ class Security
         }
 
         return false;
+    }
+
+    public function passwordWeakness($password)
+    {
+        if (strlen($password) < $this->config["passwordminlength"])
+        {
+            return "Password is too short.";
+        }
+        if (strlen($password) > $this->config["passwordmaxlength"])
+        {
+            return "Password is too long.";
+        }
+        if ($this->config["requireDigit"] && !preg_match("#[0-9]+#", $password))
+        {
+            return "Password must include at least one digit.";
+        }
+        if ($this->config["requireLetter"] && !preg_match("#[a-zA-Z]+#", $password))
+        {
+            return "Password must include at least one letter.";
+        }
+        if ($this->config["requireSymbol"] && !preg_match('/[\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $password))
+        {
+            return "Password must include at least one special character.";
+        }
+        return "None";
     }
 
     public function changePassword($username, $newPassword, $hashAlgorithm)

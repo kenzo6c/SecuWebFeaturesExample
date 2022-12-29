@@ -81,11 +81,11 @@
                     <form action="#" method="post" name="authform">
                         <div>
                             <label for="username" class="form-label">Nom d'utilisateur :</label>
-                            <input id ="username" type="text" name="userauth[username]" value="" class="form-control" placeholder="Nom d'utilisateur" minlength=4 maxlenght=16 required>
+                            <input id ="username" type="text" name="userauth[username]" value="" class="form-control" placeholder="Nom d'utilisateur" required>
                         </div>
                         <div>
                             <label for="password" class="form-label">Mot de passe :</label>
-                            <input id ="password" type="password" name="userauth[password]" class="form-control" placeholder="Mot de passe" minlength=8 maxlength=64 required>
+                            <input id ="password" type="password" name="userauth[password]" class="form-control" placeholder="Mot de passe" required>
                         </div>
                         <div>
                             <?php $secu->insertCSRFField(); ?>
