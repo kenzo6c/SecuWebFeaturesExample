@@ -17,7 +17,7 @@ class Security
         $this->config = &$config;
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
-        if (!isset($this->session["nbrOfAttempts"])) $this->session["nbrOfAttempts"] = $config["maxNbrOfAttempts"];
+        if (!isset($this->session["maxAttemptsSession"])) $this->session["maxAttemptsSession"] = $config["maxAttemptsSession"];
     }
 
     private function resetCSRFToken()
@@ -51,7 +51,7 @@ class Security
             return false;
         }
 
-        if (empty($this->post["submit"]) || empty($this->post[$this->CSRFTokenName]))
+        if (empty($this->post[$this->CSRFTokenName]))
         {
             return false;
         }
@@ -71,6 +71,7 @@ class Security
     {
         if (!$this->isTokenValid())
         {
+            echo "Token invalide <br/>";
             return false;
         }
         echo "Token is valid <br/>";
@@ -115,6 +116,8 @@ class Security
             $this->session["access"] = $accountsData[$user["username"]]["access"];
             $this->session["is_root"] = $accountsData[$user["username"]]["is_root"];
             $this->session["loggedin"] = true;
+            $this->resetAttempts($user["username"]);
+
             return true;
 
         }
@@ -186,9 +189,9 @@ class Security
         $accountsData[$username]["algoPHP"] = $hashInfo["algo"];
         $accountsData[$username]["algoHuman"] = $hashInfo["algoName"];
 
-
-
         file_put_contents("data/accounts.json", json_encode($accountsData));
+
+        $this->resetAttempts($username);
     }
 
     public function userIsRoot($username)
@@ -209,6 +212,47 @@ class Security
             return true;
         }
         return false;
+    }
+
+    public function hasAttempts($username)
+    {
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+
+        if (!empty($accountsData[$username]) && $accountsData[$username]["attempts_left"] <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public function decrementAttempts($username)
+    {
+        $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+
+        if (!empty($accountsData[$username]) && $username !== "Administrateur")
+        {
+            $accountsData[$username]["attempts_left"] -= 1;
+            file_put_contents("data/accounts.json", json_encode($accountsData));
+            echo "Attempts left after decrement: " . $accountsData[$username]["attempts_left"] . "<br/>";
+        }
+        else
+        {
+            echo "User not found (or is an administrator), decrement cancelled.<br/>";
+        }
+    }
+
+    public function resetAttempts($username)
+    {
+        if (empty($username))
+        {
+            echo "ERROR : Username is empty.<br/>";
+        }
+        else
+        {
+            $accountsData = json_decode(file_get_contents("data/accounts.json"), true);
+            $accountsData[$username]["attempts_left"] = $this->config["maxAttemptsAccount"];
+            file_put_contents("data/accounts.json", json_encode($accountsData));
+        }
     }
 
     public function disconnect()

@@ -5,6 +5,24 @@
         header("Location: noaccess.php");
         exit();
     }
+
+
+    if (!empty($_POST["restoreAttempts"]))
+    {
+        if ($secu->isFormValid("restoreAttempts", []))
+        {
+            $accounts = json_decode(file_get_contents("data/accounts.json"), true);
+            foreach ($accounts as &$account)
+            {
+                $account["attempts_left"] = $config["maxAttemptsAccount"];
+            }
+            file_put_contents("data/accounts.json", json_encode($accounts));
+        }
+        else
+        {
+            echo "Invalid auth.";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -44,6 +62,7 @@
                                 <th scope="col">Hash - (contient : l'algorithme, les paramètres, le sel, le hash pur)</th>
                                 <th scole="col">Algorithme utilisé</th>
                                 <th scole="col">Accès</th>
+                                <th scole="col">Tentatives restantes</th>
                             </tr>
                         </thead>
 
@@ -57,6 +76,7 @@
                                     <td><?= $info["hash"]?></td>
                                     <td><?= $info["algoHuman"]?></td>
                                     <td><?= $info["is_root"] ? "<span class=\"text-danger\">Administrateur (root)</span>" : implode(", ",$info["access"])?></td>
+                                    <td><?= $info["attempts_left"] <= 0 ? "<span class=\"text-danger\">0</span>"  : $info["attempts_left"]?>/<?=$config["maxAttemptsAccount"]?></td>
                                 </tr>
                                 <?php
                             }?>
@@ -66,6 +86,11 @@
                     <p>
                         Remarque : le sel (salt) des mots de passe est contenu dans le hash avec l'utilisation de la fonction password_hash() de PHP.
                     </p>
+
+                    <form action="#" method="post" name="restoreform">
+                        <?php $secu->insertCSRFField();?>
+                        <input type="submit" name="restoreAttempts" class=" btn btn-warning" value="Restaurer le nombre de tentatives"><br/><br/>
+                    </form>
                 </div>
             </div>
         </div>

@@ -6,30 +6,40 @@
         {
             if ($secu->isFormValid("chgepass", ["old", "new"]))
             {
-                if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
+                if ($secu->hasAttempts($_SESSION["user"]))
                 {
-                    $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
-                    if ($weakness === "None")
+                    if ($secu->verifyPassword($_SESSION["user"], $_POST["chgepass"]["old"]))
                     {
-                        $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
-                        $secu->disconnect();
-                        $_SESSION["passwordchanged"] = true;
-                        header("Location: passwordchanged.php");
-                        exit();
+                        $weakness = $secu->passwordWeakness($_POST["chgepass"]["new"]);
+                        if ($weakness === "None")
+                        {
+                            $secu->changePassword($_SESSION["user"], $_POST["chgepass"]["new"], $config["hashAlgorithm"]);
+                            $secu->disconnect();
+                            $_SESSION["passwordchanged"] = true;
+                            header("Location: passwordchanged.php");
+                            exit();
+                        }
+                        else
+                        {
+                            $secu->resetAttempts($_SESSION["user"]);
+                            echo "Password is not strong enough.";
+                            echo "Weakness: " . $weakness;
+                        }
                     }
                     else
                     {
-                        echo "Password is not strong enough.";
-                        echo "Weakness: " . $weakness;
+                        $secu->decrementAttempts($_SESSION["user"]);
+                        echo "Wrong password.";
                     }
                 }
                 else
                 {
-                    echo "Wrong password.";
+                    echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
                 }
             }
             else
             {
+                $secu->decrementAttempts($_SESSION["user"]);
                 echo "Invalid auth.";
             }
         }

@@ -6,15 +6,26 @@
         exit();
     }
 
-    print_r($_POST["newconfig"]);
+    if (!empty($_POST["newconfig"]))
+    {
+        print_r($_POST["newconfig"]);
+    }
+    else
+    {
+        echo "No new config";
+    }
+
     if (!empty($_POST["submit"]))
     {
-        if ($secu->isFormValid("newconfig", ["maxNbrOfAttempts", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
+        if ($secu->isFormValid("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
             $newconfig = $_POST["newconfig"];
 
+            $previous_max_attempts = $config["maxAttemptsAccount"];
+
             $config = [
-                "maxNbrOfAttempts" => intval($newconfig["maxNbrOfAttempts"]),
+                "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
+                "maxAttemptsAccount" => intval($newconfig["maxAttemptsAccount"]),
                 "hashAlgorithm" => $newconfig["hashAlgorithm"],
                 "CSRFTokenLength" => intval($newconfig["CSRFTokenLength"]),
                 "passwordminlength" => intval($newconfig["passwordminlength"]),
@@ -25,6 +36,18 @@
             ];
             file_put_contents("data/config.json", json_encode($config));
 
+            $accounts = json_decode(file_get_contents("data/accounts.json"), true);
+            foreach ($accounts as &$account)
+            {
+                if ($account["attempts_left"] > $config["maxAttemptsAccount"])
+                {
+                    $account["attempts_left"] = $config["maxAttemptsAccount"];
+                    echo "yo" . $account["username"] . " - left:". $account["attempts_left"] . "yo" . "<br/>";
+                }
+            }
+            print_r($accounts["Utilisateur1"]["attempts_left"]);
+            file_put_contents("data/accounts.json", json_encode($accounts));
+            echo "done!";
             echo "Configuration has been updated.";
         }
         else
@@ -54,8 +77,13 @@
             <div class="row">
                 <div class="column">
                     <form action="#" method="post" name="adminform">
-                        <label for="maxNbrOfAttempts" class="form-label">Nombre maximal d'essais :</label>
-                        <input type="number" name="newconfig[maxNbrOfAttempts]" id="maxNbrOfAttempts" class="form-control" value="<?= $config["maxNbrOfAttempts"]?>"><br/>
+
+                        <label for="maxAttemptsSession" class="form-label">Nombre maximal d'essais par session :</label>
+                        <input type="number" name="newconfig[maxAttemptsSession]" id="maxAttemptsSession" class="form-control" value="<?= $config["maxAttemptsSession"]?>"><br/>
+
+
+                        <label for="maxAttemptsAccount" class="form-label">Nombre maximal d'essais par compte :</label>
+                        <input type="number" name="newconfig[maxAttemptsAccount]" id="maxAttemptsAccount" class="form-control" value="<?= $config["maxAttemptsAccount"]?>"><br/>
 
                         <label for="hashAlgorithm" class="form-label">Algorithme de hashage :</label>
                         <select name="newconfig[hashAlgorithm]" id="hashAlgorithm" class="form-select">

@@ -5,55 +5,33 @@
         print($_POST["submit"]);
         if ($secu->isFormValid("userauth", ["username", "password"]))
         {
-            if ($secu->authUser($_POST["userauth"]))
-            {
-                print($_SESSION["user"]);
-                if ($_SESSION["user"] === "Administrateur")
+            if ($secu->hasAttempts($_POST["userauth"]["username"]))
+                if ($secu->authUser($_POST["userauth"]))
                 {
-                    echo "Admin Auth OK";
-                }
-                elseif ($_SESSION["user"] === "Utilisateur1")
-                {
-                    echo "User 1 Auth OK";
-                }
-                elseif ($_SESSION["user"]  === "Utilisateur2")
-                {
-                    echo "User 2 Auth OK";
+                    print($_SESSION["user"]);
                 }
                 else
                 {
-                    echo "AUTH ERROR";
                     $secu->disconnect();
-                    exit();
+                    $secu->decrementAttempts($_POST["userauth"]["username"]);
+                    echo "Wrong username or password";
                 }
-            }
             else
             {
                 $secu->disconnect();
-                echo "Wrong username or password";
+                echo "No attempts left, the account is locked, please contact an administrator for a password reset.";
             }
         }
         else
         {
             $secu->disconnect();
+            $secu->decrementAttempts($_POST["userauth"]["username"]);
             echo "Invalid auth.";
         }
     }
     elseif ($_SESSION["loggedin"])
     {
         echo "Already logged in.";
-        if ($_SESSION["user"] === "Administrateur")
-        {
-            echo "Admin Auth OK";
-        }
-        elseif ($_SESSION["user"] === "Utilisateur1")
-        {
-            echo "User1 Auth OK";
-        }
-        elseif ($_SESSION["user"]  === "Utilisateur2")
-        {
-            echo "User2 Auth OK";
-        }
     }
 
 ?>

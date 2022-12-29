@@ -5,16 +5,19 @@
         "Utilisateur2" => "BonjourVJ30h27121990"
     ];
 
+    # load config
+    $config = json_decode(file_get_contents("../data/config.json"), true);
+
     $AdminName = "Administrateur";
-    $AdminHash = password_hash($passwords[$AdminName], PASSWORD_ARGON2ID);
+    $AdminHash = password_hash($passwords[$AdminName], $config["hashAlgorithm"]);
     $AdminInfo = password_get_info($AdminHash);
 
     $U1Name = "Utilisateur1";
-    $U1Hash = password_hash($passwords[$U1Name], PASSWORD_ARGON2ID);
+    $U1Hash = password_hash($passwords[$U1Name], $config["hashAlgorithm"]);
     $U1Info = password_get_info($U1Hash);
 
     $U2Name = "Utilisateur2";
-    $U2Hash = password_hash($passwords[$U2Name], PASSWORD_ARGON2ID);
+    $U2Hash = password_hash($passwords[$U2Name], $config["hashAlgorithm"]);
     $U2Info = password_get_info($U2Hash);
 
     $users = [
@@ -24,7 +27,8 @@
             "algoPHP" => $AdminInfo["algo"],
             "algoHuman" => $AdminInfo["algoName"],
             "access" => [],
-            "is_root" => true
+            "is_root" => true,
+            "attempts_left" => $config["maxAttemptsAccount"]
         ],
         $U1Name => [
             "username" =>  $U1Name,
@@ -32,7 +36,8 @@
             "algoPHP" => $AdminInfo["algo"],
             "algoHuman" => $AdminInfo["algoName"],
             "access" => ["clients_res", "user"],
-            "is_root" => false
+            "is_root" => false,
+            "attempts_left" => $config["maxAttemptsAccount"]
         ],
         $U2Name => [
             "username" => $U2Name,
@@ -40,7 +45,8 @@
             "algoPHP" => $AdminInfo["algo"],
             "algoHuman" => $AdminInfo["algoName"],
             "access" => ["clients_aff", "user"],
-            "is_root" => false
+            "is_root" => false,
+            "attempts_left" => $config["maxAttemptsAccount"]
         ],
     ];
 

@@ -18,7 +18,7 @@
                     $weakness = $secu->passwordWeakness($newpassword);
                     if ($weakness === "None")
                     {
-                        $secu->changePassword($user, $newpassword, $config["hashAlgorithm"]);
+                        $secu->changePassword($user, $newpassword, $config["hashAlgorithm"], true);
                         echo "The Password of \"" . $user . "\" has been changed.";
                     }
                     else
@@ -64,7 +64,10 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center text-danger">Changement de mot de passe forcé</h1>
-                    <p>Entrez le nom de l'utilisateur pour qui vous voulez changer le mot de passe ainsi que son nouveau mot de passe.</p>
+                    <p>Entrez le nom de l'utilisateur pour qui vous voulez changer le mot de passe ainsi que son nouveau mot de passe.
+                        <br/>Attention, vous ne pouvez pas changer le mot de passe d'un administrateur.
+                        <br/>Le changement de mot de passe rétablira le nombre de tentatives de connexion restantes à la valeur par défaut.
+                    </p>
                     <form action="#" method="post" name="authform">
                         <div>
                             <label for="username" class="form-label">Nom d'utilisateur :</label>
