@@ -21,9 +21,29 @@
                     <h1 class="text-center">Accueil</h1>
 
                     <p>
-                        <a href="admin.php">Panneau d'administration</a><br/>
-                        <a href="clients_res.php">Liste des clients résidentiels</a><br/>
-                        <a href="clients_aff.php">Liste des clients d'affaire</a><br/>
+                        <?php
+                            $no_access = true;
+                            if ($secu->hasAccess("root"))
+                            {
+                                echo "<a href=\"admin.php\">Panneau d'administration</a><br/>";
+                                $no_access = false;
+                            }
+                            if ($secu->hasAccess("clients_res"))
+                            {
+                                echo "<a href=\"clients_res.php\">Liste des clients résidentiels</a><br/>";
+                                $no_access = false;
+                            }
+                            if ($secu->hasAccess("clients_aff"))
+                            {
+                                echo "<a href=\"clients_aff.php\">Liste des clients d'affaire</a><br/>";
+                                $no_access = false;
+                            }
+
+                            if ($no_access)
+                            {
+                                echo "<a href=\"auth.php\">Se connecter</a><br/>";
+                            }
+                        ?>
                     </p>
                 </div>
             </div>

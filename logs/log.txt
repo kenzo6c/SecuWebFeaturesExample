@@ -54,3 +54,12 @@
 [29/12/2022 23:33:34] User "Administrateur" disconnected
 [29/12/2022 23:33:41] User "Administrateur" not found (or is an administrator) => no decrement.
 [29/12/2022 23:33:47] User "Administrateur" connected
+[29/12/2022 23:37:24] User "Administrateur" disconnected
+[29/12/2022 23:37:33] User "Utilisateur1" connected
+[29/12/2022 23:50:24] User "Utilisateur1" disconnected
+[29/12/2022 23:51:17] User "Administrateur" connected
+[29/12/2022 23:52:01] User "Administrateur" disconnected
+[29/12/2022 23:52:12] User "Administrateur" connected
+[29/12/2022 23:52:16] User "Administrateur" disconnected
+[29/12/2022 23:52:20] User "Administrateur" connected
+[29/12/2022 23:52:25] User "Administrateur" disconnected
