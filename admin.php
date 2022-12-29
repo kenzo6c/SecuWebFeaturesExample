@@ -59,6 +59,7 @@
             <div class="row">
                 <div class="column">
                     <p>
+                        <a href="adminlogs.php">Voir les logs (journaux)</a><br/>
                         <a href="adminconfigure.php">Configurer la politique de sécurité</a><br/>
                         <a href="adminchangepassword.php">Forcer le changement de mot de passe d'un utilisateur</a><br/>
                     </p>
@@ -105,8 +106,8 @@
                         <?php $secu->insertCSRFField();?>
                         <input type="submit" name="restoreAttempts" class=" btn btn-warning" value="Restaurer le nombre de tentatives"><br/><br/>
                     </form>
-                        <a href="restoreaccounts.php" class="btn btn-danger">Restaurer tous les comptes (ACTION IRRÉVERSIBLE)</a><br/>
-                    </p>
+
+                    <a href="restoreaccounts.php" class="btn btn-danger">Restaurer tous les comptes (ACTION IRRÉVERSIBLE)</a><br/>
                 </div>
             </div>
         </div>
