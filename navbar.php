@@ -10,11 +10,11 @@
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="index.php">Accueil</a>
             </ul>
-            <span class="navbar-text">
+            <span class="navbar-text active">
                 <?php
                     if ($_SESSION["loggedin"])
                     {
-                        echo "Connecté en tant que \"" . $_SESSION["user"] . "\"   <a class=\"btn btn-outline-primary\" href=\"logout.php\">Se déconnecter</a>   <a class=\"btn btn-outline-danger\" href=\"changepassword.php\">Changer de mot de passe</a>";
+                        echo "Connecté en tant que <span class=\"text-white\">" . $_SESSION["user"] . "</span> | <a class=\"btn btn-outline-primary\" href=\"logout.php\">Se déconnecter</a>   <a class=\"btn btn-outline-danger\" href=\"changepassword.php\">Changer de mot de passe</a>";
                     }
                     else
                     {
