@@ -47,16 +47,3 @@ Pour tester le site web, vous pouvez utiliser la commande suivante (avec PHP ins
 php -S localhost:8000
 ```
 Attention, le serveur intégré de PHP n'est pas sécurisé, il n'est pas fait pour être utilisé en production.
-
-## Structure du fichier accounts.json / accounts.json file structure:
-
-```json
-{
-    "User": {
-        "username": "myname",
-        "hash": "myhash",
-        "algoPHP": "PHP Variable of the hash algorithm",
-        "algoHuman": "Human readable name of the hash algorithm"
-    }
-}
-```
