@@ -69,6 +69,11 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center text-danger">Changement de mot de passe forcé</h1>
+
+                    <p>
+                        <a href="admin.php">Retourner au panneau d'administration</a><br/>
+                    </p>
+
                     <p>Entrez le nom de l'utilisateur pour qui vous voulez changer le mot de passe ainsi que son nouveau mot de passe.
                         <br/>Attention, vous ne pouvez pas changer le mot de passe d'un administrateur.
                         <br/>Le changement de mot de passe rétablira le nombre de tentatives de connexion restantes à la valeur par défaut.

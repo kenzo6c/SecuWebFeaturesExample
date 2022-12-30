@@ -44,7 +44,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <title>Panneau d'administration</title>
+        <title>Panneau d'Administration</title>
     </head>
     <body>
 

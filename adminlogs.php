@@ -50,6 +50,10 @@
                 <div class="column">
                     <h1 class="text-center">Logs</h1>
 
+                    <p>
+                        <a href="admin.php">Retourner au panneau d'administration</a><br/>
+                    </p>
+
                     <form action="#" method="post" name="clearform">
                         <?php $secu->insertCSRFField();?>
                         <input type="submit" name="clearLogs" class=" btn btn-warning" value="Effacer les logs (journaux)"><br/><br/>

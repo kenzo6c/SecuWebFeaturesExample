@@ -98,6 +98,11 @@
             <div class="row">
                 <div class="column">
                     <h1 class="text-center">Restaurer tous les comptes</h1>
+
+                    <p>
+                        <a href="admin.php">Retourner au panneau d'administration</a><br/>
+                    </p>
+
                     <p>Cliquez ici pour restaurer tous les comptes. Attention, cette action est irréversible !</p>
                     <form action="#" method="post" name="restoreaccountsform">
                         <?php $secu->insertCSRFField();?>

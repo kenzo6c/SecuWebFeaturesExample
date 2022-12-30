@@ -70,7 +70,7 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <title>Configurer la politique de sécurité</title>
+        <title>Configuration de la politique de sécurité</title>
     </head>
     <body>
 
@@ -83,6 +83,13 @@
 
             <div class="row">
                 <div class="column">
+
+                    <h1 class="text-center">Configurer la politique de sécurité</h1>
+
+                    <p>
+                        <a href="admin.php">Retourner au panneau d'administration</a><br/>
+                    </p>
+
                     <form action="#" method="post" name="adminform">
 
                         <label for="attemptsWaitTime" class="form-label">Temps d'attente entre deux essais :</label>
@@ -127,6 +134,7 @@
 
                         <input type="submit" name="submit" class=" btn btn-warning" value="Mettre à jour la configuration"><br/><br/>
                     </form>
+
                 </div>
             </div>
         </div>
