@@ -17,7 +17,7 @@
         {
             return;
         }
-        if (!$secu->isFormValidLog("newconfig", ["maxAttemptsSession", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
+        if (!$secu->isFormValidLog("newconfig", ["attemptsWaitTime", "maxAttemptsAccount", "hashAlgorithm", "CSRFTokenLength", "passwordminlength", "passwordmaxlength"]))
         {
             return;
         }
@@ -29,7 +29,7 @@
 
         $config = [
             "attemptsWaitTime" => intval($newconfig["attemptsWaitTime"]),
-            "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
+            // "maxAttemptsSession" => intval($newconfig["maxAttemptsSession"]),
             "maxAttemptsAccount" => intval($newconfig["maxAttemptsAccount"]),
             "hashAlgorithm" => $newconfig["hashAlgorithm"],
             "CSRFTokenLength" => intval($newconfig["CSRFTokenLength"]),
@@ -88,14 +88,14 @@
                         <label for="attemptsWaitTime" class="form-label">Temps d'attente entre deux essais :</label>
                         <input type="number" name="newconfig[attemptsWaitTime]" id="attemptsWaitTime" class="form-control" value="<?= $config["attemptsWaitTime"]?>"><br/>
 
-                        <label for="maxAttemptsSession" class="form-label">Nombre maximal d'essais par session :</label>
+                        <!-- <label for="maxAttemptsSession" class="form-label">Nombre maximal d'essais par session :</label>
                         <input type="number" name="newconfig[maxAttemptsSession]" id="maxAttemptsSession" class="form-control" value="<?= $config["maxAttemptsSession"]?>"><br/>
-
+ -->
 
                         <label for="maxAttemptsAccount" class="form-label">Nombre maximal d'essais par compte :</label>
                         <input type="number" name="newconfig[maxAttemptsAccount]" id="maxAttemptsAccount" class="form-control" value="<?= $config["maxAttemptsAccount"]?>"><br/>
 
-                        <label for="hashAlgorithm" class="form-label">Algorithme de hashage :</label>
+                        <label for="hashAlgorithm" class="form-label">Algorithme de hachage :</label>
                         <select name="newconfig[hashAlgorithm]" id="hashAlgorithm" class="form-select">
                             <option value= <?=PASSWORD_BCRYPT?> <?= $config["hashAlgorithm"] === PASSWORD_BCRYPT ? "selected" : ""?>>PASSWORD_BCRYPT</option>
                             <option value= <?=PASSWORD_ARGON2I?> <?= $config["hashAlgorithm"] === PASSWORD_ARGON2I ? "selected" : ""?>>PASSWORD_ARGON2I</option>
