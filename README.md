@@ -1,7 +1,7 @@
 # SecuWebsiteExample
 
 ## English
-This project is a website implementing some security features. It is NOT a secure website! Only some parts are secured, and it was created only for educational purposes. It is not meant to be used in production.
+This project is a website implementing some security features. **It is NOT a secure website!** Only some parts are secured, and it was created only for educational purposes. It is not meant to be used in production.
 
 The informations present in this file are here for testing purposes, and wouldn't exist in a real project.
 Also, in a real project, a more robust database would be used instead of a JSON file.
@@ -25,7 +25,7 @@ php -S localhost:8000
 Be careful, the PHP integrated server is not secure, it is not made to be used in production.
 
 ## Français
-Ce projet est un site web implémentant quelques fonctionnalités de sécurité. Ce n'est PAS un site web sécurisé ! Seules certaines parties sont sécurisées, le site a été créé uniquement à des fins éducatives. Il n'est pas destiné à être utilisé en production.
+Ce projet est un site web implémentant quelques fonctionnalités de sécurité. **Ce n'est PAS un site web sécurisé !** Seules certaines parties sont sécurisées, le site a été créé uniquement à des fins éducatives. Il n'est pas destiné à être utilisé en production.
 
 Les informations présentes dans ce fichiers sont là uniquement pour des tests, et n'existeraient pas dans un projet réel.
 De plus, dans un projet réel, une base de données plus robuste serait utilisée au lieu d'un fichier JSON.
