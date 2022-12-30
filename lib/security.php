@@ -17,7 +17,7 @@ class Security
         $this->config = &$config;
 
         if (!isset($this->session["loggedin"])) $this->session["loggedin"] = false;
-        if (!isset($this->session["maxAttemptsSession"])) $this->session["maxAttemptsSession"] = $config["maxAttemptsSession"];
+        // if (!isset($this->session["maxAttemptsSession"])) $this->session["maxAttemptsSession"] = $config["maxAttemptsSession"];
         if (!isset($this->session["waitingTime"])) $this->session["waitingTime"] = 0;
     }
 
