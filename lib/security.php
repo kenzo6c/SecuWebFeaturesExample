@@ -216,7 +216,7 @@ class Security
 
     public function hasAccess($requiredAccess)
     {
-        if ($this->session["is_root"] || (!empty($_SESSION["access"]) && in_array($requiredAccess, $this->session["access"], true)))
+        if ((!empty($this->session["is_root"]) && $this->session["is_root"]) || (!empty($_SESSION["access"]) && in_array($requiredAccess, $this->session["access"], true)))
         {
             return true;
         }
